@@ -38,8 +38,8 @@ class Dispatcher
     {
     	$this->router = new Router();
         $basePath = $this->router->isAdmin()
-            ? 'src/Controllers/Admin/'
-            : 'src/Controllers/';
+            ? 'src/Controller/Admin/'
+            : 'src/Controller/';
         $this->controllerPath = $basePath . ucfirst($this->router->getControllerName()) . '.php';
 
         return $this;
@@ -67,7 +67,7 @@ class Dispatcher
 
     public function setController(string $controller)
     {
-        $controller = 'App\Controllers\\'.$controller;
+        $controller = 'App\Controller\\'.$controller;
         $this->controller = new $controller;
     }
 

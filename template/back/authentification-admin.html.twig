@@ -1,0 +1,18 @@
+{% extends "back/template.html.twig" %}
+{% block title%}{{ titlePage }} - Framework from scratch{% endblock title %}
+{% block content %}
+    <h1>{{ titlePage }}</h1>
+    <h2>Connexion</h2>
+    <p>{{ message }}</p>
+    <form action="/admin/authentification/login" method="post">
+        <p>
+            <label for="login">Login</label><br>
+            <input type="text" id="login" name="authentification[login]">
+        </p>
+        <p>
+            <label for="password">Mot de passe</label><br>
+            <input type="password" id="password" name="authentification[password]">
+        </p>
+        <input type="submit" value="Connexion"><br>
+    </form>
+{% endblock content %}
