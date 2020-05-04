@@ -65,9 +65,10 @@ class Dispatcher
         return $this->controller;
     }
 
-    public function setController(string $controller)
+    public function setController(string $controllerName)
     {
-        $controller = 'App\Controller\\'.$controller;
+        $controller =$this->router->isAdmin() ? 'App\Controller\Admin\\' : 'App\Controller\\';
+        $controller = $controller . $controllerName;
         $this->controller = new $controller;
     }
 

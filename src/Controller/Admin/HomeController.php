@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
-session_start();
+use Core\AdminControllerAbstract;
 
-use Core\DefaultControllerAbstract;
-
-class HomeController extends DefaultControllerAbstract
+class HomeController extends AdminControllerAbstract
 {
     public function indexAction()
     {
-        if ($_SESSION['login']) {
-            return $this->renderView(
-                'back/home.html.twig',
-                [
-                    'login' => $_SESSION['login']
-                ]
-            );
-        }
-
-        header('Location: /admin/authentification/login');
+        return $this->renderView(
+            'back/home.html.twig',
+            [
+                'login' => $_SESSION['login']
+            ]
+        );
     }
 }

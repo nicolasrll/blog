@@ -4,9 +4,9 @@ namespace App\Repository;
 
 //use Core\PdoConnect;
 use Core\AbstractManager;
-use App\Entity\Admin;
+use App\Entity\User;
 
-class AdminManager extends AbstractManager
+class UserManager extends AbstractManager
 {
 
     const TABLE_NAME = 'user';

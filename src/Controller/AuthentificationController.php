@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-session_start();
-
-require_once('src/Repository/AdminManager.php');
+//require_once('src/Repository/UserManager.php');
 
 use Core\DefaultControllerAbstract;
 use Core\Request;
 use Exception;
-use App\Repository\AdminManager;
+use App\Repository\UserManager;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
@@ -25,11 +23,10 @@ class AuthentificationController extends DefaultControllerAbstract
 
     public function loginAction()
     {
-
         if ($this->isSubmited('authentification')) {
             $identifiers = ($this->getFormValues('authentification'));
 
-            $result = (new AdminManager())->findOne(['login' => $identifiers['login']]);
+            $result = (new UserManager())->findOne(['login' => $identifiers['login']]);
 
             if(empty($result)){
                 throw new Exception('Echec de connexion. Login invalide ');
@@ -51,6 +48,6 @@ class AuthentificationController extends DefaultControllerAbstract
 
     public function logoutAction() {
         $_SESSION = array();
-        header('Location: /admin/home/');
+        header('Location: /authentification/login');
     }
 }

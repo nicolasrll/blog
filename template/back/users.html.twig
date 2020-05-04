@@ -1,0 +1,14 @@
+{% extends "back/template.html.twig" %}
+{% block title%}Liste des utilisateurs - Site personnel de Nicolas Rellier{% endblock %}
+{% block content %}
+    <h1>Liste des utilisateurs</h1>
+    {% for user in users %}
+        <p>
+            {{ user.login }}<br>
+            {{ user.password }}<br>
+            {{ user.role }}<br>
+            {{ user.status }}<br>
+            <a href="#">Supprimer le compte</a>
+        </p>
+    {% endfor %}
+{% endblock content %}
