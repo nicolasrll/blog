@@ -6,7 +6,6 @@ use Core\AbstractEntity;
 
 class User extends AbstractEntity
 {
-    protected $id;
     protected $login = '';
     protected $password = '';
     protected $role = 'user';

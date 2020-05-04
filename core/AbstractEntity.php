@@ -4,6 +4,8 @@ namespace Core;
 
 abstract class AbstractEntity
 {
+    private $id;
+
     public function hydrate(array $data): AbstractEntity
     {
         foreach ($data as $property => $value) {

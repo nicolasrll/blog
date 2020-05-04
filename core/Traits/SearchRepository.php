@@ -22,11 +22,10 @@ trait SearchRepository
         return !empty($data) ? reset($data) : null ;
     }
 
-    // Ex function findAll()
     /**
      * [find description]
      * @param  array  $filters [description]
-     * @return [array AbstractEntity]
+     * @return AbstractEntity[]
      */
     public function find(array $filters = []): array
     {
