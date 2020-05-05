@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Espace administration - Site web personnel de Nicolas Rellier</title>
+    </head>
+    <body>
+        <main>
+            <h1>Espace d'administration</h1>
+            <h2>Connexion</h2>
+            <p>{{ message }}</p>
+            <form action="/authentification/login" method="post">
+                <p>
+                    <label for="login">Login</label><br>
+                    <input type="text" id="login" name="authentification[login]">
+                </p>
+                <p>
+                    <label for="password">Mot de passe</label><br>
+                    <input type="password" id="password" name="authentification[password]">
+                </p>
+                <input type="submit" value="Connexion"><br>
+            </form>
+        </main>
+    </body>
+</html>

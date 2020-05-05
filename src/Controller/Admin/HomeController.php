@@ -9,10 +9,7 @@ class HomeController extends AdminControllerAbstract
     public function indexAction()
     {
         return $this->renderView(
-            'back/home.html.twig',
-            [
-                'login' => $_SESSION['login']
-            ]
+            'back/home.html.twig'
         );
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-//require_once('src/Repository/UserManager.php');
-
 use Core\DefaultControllerAbstract;
 use Core\Request;
 use Exception;
@@ -13,8 +11,8 @@ class AuthentificationController extends DefaultControllerAbstract
 {
     public function indexAction()
     {
-        $this->renderView(
-            'back/authentification-admin.html.twig',
+        return $this->renderView(
+            'authentification-admin.html.twig',
             [
                 'titlePage' => 'Espace administrateur'
             ]
@@ -24,30 +22,42 @@ class AuthentificationController extends DefaultControllerAbstract
     public function loginAction()
     {
         if ($this->isSubmited('authentification')) {
-            $identifiers = ($this->getFormValues('authentification'));
+            $formValues = $this->getFormValues('authentification');
 
-            $result = (new UserManager())->findOne(['login' => $identifiers['login']]);
+            $result = (new UserManager())->findOne(['login' => $formValues['login']]);
 
             if(empty($result)){
-                throw new Exception('Echec de connexion. Login invalide ');
+                return $this->renderView(
+                    'authentification-admin.html.twig',
+                    [
+                        'message' => 'Echec de connexion. Login invalide '
+                    ]
+                );
             }
 
-            if (!password_verify($identifiers['password'], $result->getPassword())) {
-                throw new Exception('Erreur dans la saisie du mot de passe');
+            if (!password_verify($formValues['password'], $result->getPassword())) {
+                return $this->renderView(
+                    'authentification-admin.html.twig',
+                    [
+                        'message' => 'Erreur dans la saisie du mot de passe'
+                    ]
+                );
             }
 
             $_SESSION['login'] = $result->getLogin();
 
             header('Location: /admin/home/');
+            exit;
         }
 
         return $this->renderView(
-            'back/authentification-admin.html.twig'
+            'authentification-admin.html.twig'
         );
     }
 
     public function logoutAction() {
         $_SESSION = array();
         header('Location: /authentification/login');
+        exit;
     }
 }

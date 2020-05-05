@@ -11,18 +11,6 @@ class User extends AbstractEntity
     protected $role = 'user';
     protected $status = 'active';
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function getLogin(): string
     {
         return $this->login;

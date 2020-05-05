@@ -4,4 +4,3 @@
     define('DBNAME', 'blog');
     define('DBUSER', 'nicolas');
     define('DBPASSWORD', 'root');
-    //define('DB', '');

@@ -2,7 +2,6 @@
 
 namespace Core;
 
-//use Core\PdoConnect;
 use Pdo;
 use Core\Traits\CudRepository;
 use Core\Traits\SearchRepository;

@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-//use Core\PdoConnect;
 use Core\AbstractManager;
 use App\Entity\User;
 
