@@ -6,6 +6,7 @@ use Core\DefaultControllerAbstract;
 use Core\Request;
 use Exception;
 use App\Repository\UserManager;
+use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
@@ -23,36 +24,45 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
+            $user = $this->authentificationChecks($formValues);
 
-            $result = (new UserManager())->findOne(['login' => $formValues['login']]);
-
-            if(empty($result)){
-                return $this->renderView(
-                    'authentification-admin.html.twig',
-                    [
-                        'message' => 'Echec de connexion. Login invalide '
-                    ]
-                );
+            if(null !== $user) {
+                $_SESSION['login'] = $user->getLogin();
+                header('Location: /admin/home/');
+                exit;
             }
 
-            if (!password_verify($formValues['password'], $result->getPassword())) {
-                return $this->renderView(
-                    'authentification-admin.html.twig',
-                    [
-                        'message' => 'Erreur dans la saisie du mot de passe'
-                    ]
-                );
-            }
-
-            $_SESSION['login'] = $result->getLogin();
-
-            header('Location: /admin/home/');
-            exit;
+            return $this;
         }
 
         return $this->renderView(
             'authentification-admin.html.twig'
         );
+    }
+
+    public function authentificationChecks($formValues): ?User
+    {
+        $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+
+        if(empty($user)){
+            return $this->renderView(
+                'authentification-admin.html.twig',
+                [
+                    'message' => 'Echec de connexion, aucun compte n\'existe pour ce login. Veuillez réessayer. '
+                ]
+            );
+        }
+
+        if (!password_verify($formValues['password'], $user->getPassword())) {
+            return $this->renderView(
+                'authentification-admin.html.twig',
+                [
+                    'message' => 'Echec de connexion, le mot de passe est incorrect. Veuillez réessayer.'
+                ]
+            );
+        }
+
+        return $user;
     }
 
     public function logoutAction() {
