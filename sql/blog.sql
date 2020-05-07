@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Lun 04 Mai 2020 à 19:20
+-- Généré le :  Jeu 07 Mai 2020 à 18:37
 -- Version du serveur :  5.7.29-0ubuntu0.18.04.1
 -- Version de PHP :  7.2.24-0ubuntu0.18.04.4
 
@@ -30,7 +30,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `login` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(5) NOT NULL,
+  `role` enum('admin','user') NOT NULL,
   `status` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,7 +39,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `role`, `status`) VALUES
-(1, 'admin-p5', '$2y$10$06AxFg/qa2H5/lyRN/4RDOX7t17oVrI7/MOD/EUgKPq/fFLc/pGfq', 'admin', 'active');
+(1, 'admin-p5', '$2y$10$06AxFg/qa2H5/lyRN/4RDOX7t17oVrI7/MOD/EUgKPq/fFLc/pGfq', 'admin', 'active'),
+(2, 'user1', 'test', 'user', 'active');
 
 --
 -- Index pour les tables exportées
@@ -59,7 +60,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
