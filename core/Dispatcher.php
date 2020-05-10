@@ -82,8 +82,6 @@ class Dispatcher
             throw new Exception('Le controller recherché n\'existe pas');
         }
 
-        require_once($this->getControllerPath());
-
         $this->setController($this->getRouter()->getControllerName());
 
         if (!method_exists($this->controller, $this->getRouter()->getActionName()))

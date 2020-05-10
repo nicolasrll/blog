@@ -62,11 +62,20 @@ class AuthentificationController extends DefaultControllerAbstract
             );
         }
 
+        if($user->getRole() !== 'admin') {
+            return $this->renderView(
+                'authentification-admin.html.twig',
+                [
+                    'message' => 'Accès non autorisé. Vous devez être administrateur.'
+                ]
+            );
+        }
+
         return $user;
     }
 
     public function logoutAction() {
-        $_SESSION = array();
+        session_destroy();
         header('Location: /authentification/login');
         exit;
     }

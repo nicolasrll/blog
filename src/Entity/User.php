@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 use Core\AbstractEntity;
+use Exception;
 
 class User extends AbstractEntity
 {
     protected $login = '';
     protected $password = '';
-    protected $role = 'user';
+    protected $role = '';
     protected $status = 'active';
+    const ADMIN = 'admin';
+    const USER = 'user';
+    const ENABLE = 'enable';
+    const DISABLE = 'disable';
 
     public function getLogin(): string
     {
@@ -45,6 +50,12 @@ class User extends AbstractEntity
      */
     public function setRole(string $role)
     {
+        $existingRole = [self::ADMIN, self::USER];
+
+        if (!in_array($role, $existingRole)) {
+            throw new Exception('La valeur passé n\'est pas valide');
+        }
+
         $this->role = $role;
 
         return $this;
@@ -60,6 +71,12 @@ class User extends AbstractEntity
      */
     public function setStatus(string $status)
     {
+        $existingStatus = [self::ENABLE, self::DISABLE];
+
+        if (!in_array($status, $existingStatus)) {
+            throw new Exception('La valeur passé n\'est pas valide');
+        }
+
         $this->status = $status;
 
         return $this;
