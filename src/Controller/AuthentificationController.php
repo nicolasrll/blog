@@ -76,6 +76,7 @@ class AuthentificationController extends DefaultControllerAbstract
 
     public function logoutAction() {
         session_destroy();
+
         header('Location: /authentification/login');
         exit;
     }
