@@ -4,23 +4,36 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Espace administration - Site web personnel de Nicolas Rellier</title>
+
+        <link href="../public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../public/css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <main>
-            <h1>Espace d'administration</h1>
-            <h2>Connexion</h2>
-            <p>{{ message }}</p>
-            <form action="/authentification/login" method="post">
-                <p>
-                    <label for="login">Login</label><br>
-                    <input type="text" id="login" name="authentification[login]" required>
-                </p>
-                <p>
-                    <label for="password">Mot de passe</label><br>
-                    <input type="password" id="password" name="authentification[password]" required>
-                </p>
-                <input type="submit" value="Connexion"><br>
-            </form>
+            <h1 class="text-center">Espace d'administration</h1>
+            <section class="page-section">
+                <div class="container">
+                    <div class="text-center">
+                        <h2>Connexion</h2>
+                        <p>{{ message }}</p>
+                    </div>
+                    <form id="" class="row justify-content-center" action="/authentification/login" method="post">
+                        <div class="">
+                            <div class="form-group">
+                                <label for="login">Login</label>
+                                <input class="form-control" type="text" id="login" name="authentification[login]" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <input class="form-control" type="password" id="password" name="authentification[password]" required>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Connexion"><br>
+                        </div>
+
+                    </form>
+                    </div>
+                </div>
+            </section>
         </main>
     </body>
 </html>

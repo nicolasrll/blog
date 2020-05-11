@@ -1,10 +1,26 @@
 {% extends "back/template.html.twig" %}
 {% block title%} Accueil de l'espace d'administration - Blog de Nicolas Rellier{% endblock %}
 {% block content %}
-    <h1>Accueil </h1>
-    <p>Bienvenue sur l'espace d'administration. Tu es connecté en tant que {{ session.login }}</p>
-    <h2>Liste des derniers projets</h2>
-    <h2>Liste des derniers utilisateurs inscrits</h2>
-    <h2>Liste des commentaires en attentes de validation</h2>
-    <h2>Liste des derniers commentaires postés</h2>
+    <div class="container">
+        <div class="justify-content-center text-center">
+            <h1>Accueil</h1>
+            <p>Bienvenue sur l'espace d'administration. Tu es connecté en tant que {{ session.login }}</p>
+        </div>
+        <div class="justify-content-center text-center">
+            <h2 class="section-heading text-uppercase">Projets</h2>
+            <p>Liste des 5 derniers projets:</p>
+        </div>
+        <div class="justify-content-center text-center">
+            <h2 class="section-heading text-uppercase col- ">Utilisateurs</h2>
+            <p>Liste des 5 derniers utilisateurs inscrits:</p>
+        </div>
+        <div class="justify-content-center text-center">
+            <h2 class="section-heading text-uppercase">Commentaires</h2>
+            <p>Liste des 5 derniers nouveaux commentaires en attentes de validation: </p>
+        </div>
+        <div class="justify-content-center text-center">
+        <h2 class="section-heading text-uppercase">Commentaires</h2>
+        <p>Liste des 5 derniers commentaires validés:</p>
+        </div>
+    </div>
 {% endblock content%}

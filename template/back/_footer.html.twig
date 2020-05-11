@@ -1,7 +1,11 @@
-<footer>
-    <ul>
-        <li><a href="/authentification/logout">Déconnexion</a></li>
-        <li><a href="/">Revenir au site</a></li>
-    </ul>
-    © - {{ "now"|date("m/d/Y") }} - Nicolas Rellier - Site de demo
+<footer class="footer py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-center ">
+                <a class="mr-3" href="/authentification/logout">Déconnexion</a>
+                <a href="/">Revenir au site</a>
+            </div>
+            <div class="col-lg-6 text-lg-center">© - {{ "now"|date("Y") }} - Nicolas Rellier - Site de demo</div>
+        </div>
+    </div>
 </footer>

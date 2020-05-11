@@ -1,13 +1,28 @@
-<header>
-    <nav>
-        <ul>
-            <li><a href="/admin/">Accueil</a></li>
-            <li><a href="/admin/article/new">Ajouter un article</a></li>
-            <li><a href="/admin/user/">Liste des utilisateurs</a></li>
-            <li><a href="/admin/article">Listes des articles</a></li>
-            <li><a href="/comment/list">Listes des commentaire</a></li>
-            <li><a href="/authentification/logout">Déconnexion</a></li>
-            <li><a href="/">Revenir au site</a></li>
-        </ul>
-    </nav>
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../../public/assets/img/p5logo.png" /></a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars ml-1"></i></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul id="menu-deroulant" class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/admin/">Accueil</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</a>
+                    <div class="dropdown-menu text-center"  aria-labelledby="adminDropdown">
+                        <a class="dropdown-item" href="admin/article/new">Créer un projet</a>
+                        <a class="dropdown-item" href="/admin/user/">Utilisateurs</a>
+                        <a class="dropdown-item" href="/admin/project/">Projets</a>
+                        <a class="dropdown-item" href="/comment/list">Commentaires</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/authentification/logout">Déconnexion</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Revenir au site</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-heading">Nicolas Rellier</div>
+        <div class="masthead-subheading ">Développeur PHP - Symfony</div>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#content">Découvrir</a>
+    </div>
 </header>
