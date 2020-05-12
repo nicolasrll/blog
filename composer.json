@@ -13,9 +13,10 @@
         "phpstan/phpstan": "^0.12.20"
     },
     "scripts": {
-        "post-update-cmd": [
+        "post-install-cmd": [
             "rm -rf public/bootstrap",
-            "cp -R vendor/twbs/bootstrap/dist public/bootstrap"
+            "cp -R vendor/twbs/bootstrap/dist public/bootstrap",
+            "cp -R public/assets/img public/ "
         ]
     }
 }

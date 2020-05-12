@@ -44,7 +44,7 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         $user = (new UserManager())->findOne(['login' => $formValues['login']]);
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->renderView(
                 'authentification-admin.html.twig',
                 [
@@ -53,7 +53,19 @@ class AuthentificationController extends DefaultControllerAbstract
             );
         }
 
-        if (!password_verify($formValues['password'], $user->getPassword())) {
+        if (
+            !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
+            || !$this->roleCheck($user->getRole())
+        ) {
+            return null;
+        }
+
+        return $user;
+    }
+
+    public function passwordCheck($passwordForm, $password)
+    {
+        if (!password_verify($passwordForm, $password)) {
             return $this->renderView(
                 'authentification-admin.html.twig',
                 [
@@ -62,7 +74,12 @@ class AuthentificationController extends DefaultControllerAbstract
             );
         }
 
-        if($user->getRole() !== 'admin') {
+        return $this;
+    }
+
+    public function roleCheck($role)
+    {
+        if ($role !== 'admin') {
             return $this->renderView(
                 'authentification-admin.html.twig',
                 [
@@ -71,7 +88,7 @@ class AuthentificationController extends DefaultControllerAbstract
             );
         }
 
-        return $user;
+        return $this;
     }
 
     public function logoutAction() {
