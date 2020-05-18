@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Jeu 07 Mai 2020 à 18:37
+-- Généré le :  Lun 18 Mai 2020 à 16:34
 -- Version du serveur :  5.7.29-0ubuntu0.18.04.1
 -- Version de PHP :  7.2.24-0ubuntu0.18.04.4
 
@@ -31,16 +31,16 @@ CREATE TABLE `user` (
   `login` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('admin','user') NOT NULL,
-  `status` varchar(8) NOT NULL
+  `isActive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `login`, `password`, `role`, `status`) VALUES
-(1, 'admin-p5', '$2y$10$06AxFg/qa2H5/lyRN/4RDOX7t17oVrI7/MOD/EUgKPq/fFLc/pGfq', 'admin', 'active'),
-(2, 'user1', 'test', 'user', 'active');
+INSERT INTO `user` (`id`, `login`, `password`, `role`, `isActive`) VALUES
+(1, 'admin-p5', '$2y$10$06AxFg/qa2H5/lyRN/4RDOX7t17oVrI7/MOD/EUgKPq/fFLc/pGfq', 'admin', 1),
+(2, 'user1', '$2y$10$3m7vS8xQzLjNAMvGNnD4n.iqZ6.Mr9713.0OIk.8RdUOB9a8dyecW', 'user', 1);
 
 --
 -- Index pour les tables exportées

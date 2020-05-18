@@ -24,15 +24,25 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
-            $user = $this->authentificationChecks($formValues);
+            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
 
-            if(null !== $user) {
-                $_SESSION['login'] = $user->getLogin();
-                header('Location: /admin/home/');
-                exit;
+            if (
+                empty($user)
+                || !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
+                || !$this->roleCheck($user->getRole())
+            ) {
+
+                return $this->renderView(
+                    'authentification-admin.html.twig',
+                    [
+                        'message' => 'Echec dans la tentative de connexion. Veuillez réeessayer.'
+                    ]
+                );
             }
 
-            return $this;
+            $_SESSION['login'] = $user->getLogin();
+            header('Location: /admin/home/');
+            exit;
         }
 
         return $this->renderView(
@@ -40,55 +50,22 @@ class AuthentificationController extends DefaultControllerAbstract
         );
     }
 
-    public function authentificationChecks($formValues): ?User
-    {
-        $user = (new UserManager())->findOne(['login' => $formValues['login']]);
-
-        if (empty($user)) {
-            return $this->renderView(
-                'authentification-admin.html.twig',
-                [
-                    'message' => 'Echec de connexion, aucun compte n\'existe pour ce login. Veuillez réessayer. '
-                ]
-            );
-        }
-
-        if (
-            !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
-            || !$this->roleCheck($user->getRole())
-        ) {
-            return null;
-        }
-
-        return $user;
-    }
-
-    public function passwordCheck($passwordForm, $password)
+    public function passwordCheck(string $passwordForm, string $password): bool
     {
         if (!password_verify($passwordForm, $password)) {
-            return $this->renderView(
-                'authentification-admin.html.twig',
-                [
-                    'message' => 'Echec de connexion, le mot de passe est incorrect. Veuillez réessayer.'
-                ]
-            );
+            return false;
         }
 
-        return $this;
+        return true;
     }
 
-    public function roleCheck($role)
+    public function roleCheck(string $role): bool
     {
         if ($role !== 'admin') {
-            return $this->renderView(
-                'authentification-admin.html.twig',
-                [
-                    'message' => 'Accès non autorisé. Vous devez être administrateur.'
-                ]
-            );
+            return false;
         }
 
-        return $this;
+        return true;
     }
 
     public function logoutAction() {

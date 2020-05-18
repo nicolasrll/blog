@@ -9,14 +9,16 @@
         <link href="../public/css/styles.css" rel="stylesheet" />
     </head>
     <body>
+        <header id="header-admin-login">
+            <h1 class="text-center py-4">Espace d'administration</h1>
+        </header>
         <main>
-            <h1 class="text-center">Espace d'administration</h1>
             <section class="page-section">
                 <div class="container">
-                    <div class="text-center">
+                    <header class="text-center">
                         <h2>Connexion</h2>
                         <p>{{ message }}</p>
-                    </div>
+                    </header>
                     <form id="" class="row justify-content-center" action="/authentification/login" method="post">
                         <div class="">
                             <div class="form-group">
@@ -35,5 +37,10 @@
                 </div>
             </section>
         </main>
+        <footer class="fixed-bottom py-2">
+            <div class="text-center">
+                © - {{ "now"|date("Y") }} - Nicolas Rellier
+            </div>
+        </footer>
     </body>
 </html>

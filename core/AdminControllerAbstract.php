@@ -17,6 +17,6 @@ abstract class AdminControllerAbstract extends DefaultControllerAbstract
 
     public function isLogged(): bool
     {
-        return $_SESSION['login'] ?? '';
+        return $_SESSION['login'] ?? false;
     }
 }

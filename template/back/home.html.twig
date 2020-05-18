@@ -1,26 +1,26 @@
 {% extends "back/template.html.twig" %}
-{% block title%} Accueil de l'espace d'administration - Blog de Nicolas Rellier{% endblock %}
+{% block title %}Accueil de l'espace d'administration - Blog de Nicolas Rellier{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="justify-content-center text-center">
-            <h1>Accueil</h1>
-            <p>Bienvenue sur l'espace d'administration. Tu es connecté en tant que {{ session.login }}</p>
-        </div>
-        <div class="justify-content-center text-center">
-            <h2 class="section-heading text-uppercase">Projets</h2>
-            <p>Liste des 5 derniers projets:</p>
-        </div>
-        <div class="justify-content-center text-center">
-            <h2 class="section-heading text-uppercase col- ">Utilisateurs</h2>
-            <p>Liste des 5 derniers utilisateurs inscrits:</p>
-        </div>
-        <div class="justify-content-center text-center">
-            <h2 class="section-heading text-uppercase">Commentaires</h2>
-            <p>Liste des 5 derniers nouveaux commentaires en attentes de validation: </p>
-        </div>
-        <div class="justify-content-center text-center">
-        <h2 class="section-heading text-uppercase">Commentaires</h2>
-        <p>Liste des 5 derniers commentaires validés:</p>
-        </div>
-    </div>
-{% endblock content%}
+    <section class="page-section text-center">
+        <header>
+            <h1 class="section-heading">Espace administration</h1>
+            <p class="section-subheading text-muted">Tu es connecté en tant que {{ session.login }}</p>
+        </header>
+        <article class="">
+            <h2 class="section-heading ">Projets</h2>
+            <p class="text-muted">Liste des 5 derniers projets:</p>
+        </article>
+        <article class="">
+            <h2 class="section-heading  col- ">Utilisateurs</h2>
+            <p class="text-muted">Liste des 5 derniers utilisateurs inscrits:</p>
+        </article>
+        <article class="">
+            <h2 class="section-heading ">Nouveaux commentaires</h2>
+            <p class="text-muted">Liste des 5 derniers nouveaux commentaires en attentes de validation: </p>
+        </article>
+        <article class="">
+        <h2 class="section-heading ">Commentaires</h2>
+        <p class="text-muted">Liste des 5 derniers commentaires validés:</p>
+        </article>
+    </section>
+{% endblock %}

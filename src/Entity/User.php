@@ -10,11 +10,9 @@ class User extends AbstractEntity
     protected $login = '';
     protected $password = '';
     protected $role = '';
-    protected $status = 'active';
+    protected $isActive = 0;
     const ADMIN = 'admin';
     const USER = 'user';
-    const ENABLE = 'enable';
-    const DISABLE = 'disable';
 
     public function getLogin(): string
     {
@@ -61,23 +59,17 @@ class User extends AbstractEntity
         return $this;
     }
 
-    public function getStatus(): string
+    public function getisActive(): bool
     {
-        return $this->status;
+        return $this->isActive;
     }
 
     /**
-     * @param string $status Must have value active or inactive
+     * @param string $isActive Must have value true or false
      */
-    public function setStatus(string $status)
+    public function setisActive(bool $isActive)
     {
-        $existingStatus = [self::ENABLE, self::DISABLE];
-
-        if (!in_array($status, $existingStatus)) {
-            throw new Exception('La valeur passé n\'est pas valide');
-        }
-
-        $this->status = $status;
+        $this->isActive = $isActive;
 
         return $this;
     }

@@ -1,28 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Site web personnel de Nicolas Rellier, développeur PHP Symfony. Présentation de mes compétences et de mes projets réalisés">
-
-        <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../public/css/styles.css" rel="stylesheet" />
-        <title>{% block title %}{% endblock %}</title>
-    </head>
-    <body id="page-top">
-        {% include 'back/_header.html' %}
-        <main>
-            {% block content %}{% endblock %}
-        </main>
-        {% include 'back/_footer.html.twig' %}
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Contact form JS-->
-        <script src="assets/mail/jqBootstrapValidation.js"></script>
-        <script src="assets/mail/contact_me.js"></script>
-        <!-- Core theme JS-->
-        <script src="../../public/js/scripts.js"></script>
-    </body>
-</html>
+{% extends "layout.html.twig" %}
+{% block header %}
+    {% include '/back/_header.html' %}
+{% endblock %}
+{% block footer %}
+    {% include '/back/_footer.html.twig' %}
+{% endblock %}
