@@ -27,6 +27,8 @@ class AuthentificationController extends DefaultControllerAbstract
             $errorMessage = 'Echec dans la tentative de connexion. Veuillez réeessayer';
         }
 
+        $this->hasCSRFToken();
+
         $this->renderView(
             'authentification-admin.html.twig',
             [
