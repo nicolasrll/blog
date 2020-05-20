@@ -10,6 +10,7 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
+
     public function indexAction(): void
     {
         if ($this->isSubmited('authentification')) {
