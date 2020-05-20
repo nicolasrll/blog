@@ -75,6 +75,5 @@ abstract class DefaultControllerAbstract
     {
         return !empty($formTokenValue) && hash_equals($_SESSION['token'], $formTokenValue);
     }
-
 }
 
