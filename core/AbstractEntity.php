@@ -4,7 +4,7 @@ namespace Core;
 
 abstract class AbstractEntity
 {
-    private $id;
+    private int $id;
 
     public function hydrate(array $data): AbstractEntity
     {
@@ -23,7 +23,7 @@ abstract class AbstractEntity
         return $this->id;
     }
 
-    public function setId(int $id)
+    public function setId(int $id): self
     {
         $this->id = $id;
     }

@@ -10,17 +10,14 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction()
+    public function indexAction(): DefaultControllerAbstract
     {
         return $this->renderView(
-            'authentification-admin.html.twig',
-            [
-                'titlePage' => 'Espace administrateur'
-            ]
+            'authentification-admin.html.twig'
         );
     }
 
-    public function loginAction()
+    public function loginAction(): DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
@@ -68,7 +65,8 @@ class AuthentificationController extends DefaultControllerAbstract
         return true;
     }
 
-    public function logoutAction() {
+    public function logoutAction(): void
+    {
         session_destroy();
 
         header('Location: /authentification/login');

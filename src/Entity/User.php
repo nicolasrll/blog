@@ -7,19 +7,19 @@ use Exception;
 
 class User extends AbstractEntity
 {
-    protected $login = '';
-    protected $password = '';
-    protected $role = '';
-    protected $isActive = 0;
-    const ADMIN = 'admin';
-    const USER = 'user';
+    protected string $login = '';
+    protected string $password = '';
+    protected string $role = self::USER;
+    protected bool $isActive = false;
+    protected const ADMIN = 'admin';
+    protected const USER = 'user';
 
     public function getLogin(): string
     {
         return $this->login;
     }
 
-    public function setLogin(string $login)
+    public function setLogin(string $login): self
     {
         $this->login = $login;
 
@@ -31,7 +31,7 @@ class User extends AbstractEntity
         return $this->password;
     }
 
-    public function setPassword(string $password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -46,7 +46,7 @@ class User extends AbstractEntity
     /**
      * @param string $role Must have value admin or user
      */
-    public function setRole(string $role)
+    public function setRole(string $role): self
     {
         $existingRole = [self::ADMIN, self::USER];
 
@@ -65,9 +65,9 @@ class User extends AbstractEntity
     }
 
     /**
-     * @param string $isActive Must have value true or false
+     * @param bool $isActive Must have value true or false
      */
-    public function setisActive(bool $isActive)
+    public function setisActive(bool $isActive): self
     {
         $this->isActive = $isActive;
 

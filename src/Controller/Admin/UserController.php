@@ -7,7 +7,7 @@ use App\Repository\UserManager;
 
 class UserController extends AdminControllerAbstract
 {
-    public function indexAction()
+    public function indexAction(): AdminControllerAbstract
     {
         return $this->renderView(
             'back/users.html.twig',

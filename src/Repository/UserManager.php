@@ -11,12 +11,12 @@ class UserManager extends AbstractManager
     const TABLE_NAME = 'user';
     const TABLE_PK = 'id';
 
-    public function getTableName()
+    public function getTableName(): string
     {
         return self::TABLE_NAME;
     }
 
-    public function getTablePk()
+    public function getTablePk(): string
     {
         return self::TABLE_PK;
     }
