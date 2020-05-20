@@ -29,6 +29,7 @@
                                 <label for="password">Mot de passe</label>
                                 <input class="form-control" type="password" id="password" name="authentification[password]" required>
                             </div>
+                            <input type="hidden" name="authentification[token]" value="{{ session.token }}">
                             <input type="submit" class="btn btn-primary" value="Connexion"><br>
                         </div>
 

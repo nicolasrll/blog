@@ -12,6 +12,8 @@ class AuthentificationController extends DefaultControllerAbstract
 {
     public function indexAction()
     {
+        $this->hasCSRFToken();
+
         return $this->renderView(
             'authentification-admin.html.twig',
             [
@@ -24,10 +26,14 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
+
+            //$this->csrfTokenCheck($formValues['token']);
+
             $user = (new UserManager())->findOne(['login' => $formValues['login']]);
 
             if (
-                empty($user)
+                !$this->csrfTokenCheck($formValues['token'])
+                || empty($user)
                 || !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
                 || !$this->roleCheck($user->getRole())
             ) {
@@ -45,9 +51,23 @@ class AuthentificationController extends DefaultControllerAbstract
             exit;
         }
 
+        $this->hasCSRFToken();
+
         return $this->renderView(
             'authentification-admin.html.twig'
         );
+    }
+
+    public function csrfTokenCheck($formTokenValue): bool
+    {
+        if (!empty($formTokenValue)) {
+            if(!hash_equals($_SESSION['token'], $formTokenValue)) {
+                //throw new Exception('Un problème a été rencontré. Veuillez recommencer.');
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function passwordCheck(string $passwordForm, string $password): bool
@@ -68,7 +88,8 @@ class AuthentificationController extends DefaultControllerAbstract
         return true;
     }
 
-    public function logoutAction() {
+    public function logoutAction(): self
+    {
         session_destroy();
 
         header('Location: /authentification/login');
