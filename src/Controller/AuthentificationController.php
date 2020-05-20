@@ -10,7 +10,7 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction(): ?self
+    public function indexAction(): void
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
@@ -36,7 +36,6 @@ class AuthentificationController extends DefaultControllerAbstract
                 'flashMessage' => $errorMessage ?? ''
             ]
         );
-        return $this;
     }
 
     private function checkPassword(string $passwordForm, string $password): bool
