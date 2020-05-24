@@ -58,18 +58,6 @@ class AuthentificationController extends DefaultControllerAbstract
         );
     }
 
-    public function csrfTokenCheck($formTokenValue): bool
-    {
-        if (!empty($formTokenValue)) {
-            if(!hash_equals($_SESSION['token'], $formTokenValue)) {
-                //throw new Exception('Un problème a été rencontré. Veuillez recommencer.');
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public function passwordCheck(string $passwordForm, string $password): bool
     {
         if (!password_verify($passwordForm, $password)) {
