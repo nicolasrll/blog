@@ -16,7 +16,6 @@ class Project extends AbstractEntity
     protected string $linkToProject = '';
     protected string $linkToPicture = '';
 
-
     public function getUserId(): int
     {
         return $this->userId;
