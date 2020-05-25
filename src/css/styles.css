@@ -190,3 +190,7 @@ header.masthead .masthead-heading {
         font-size: 1.2rem;
     }
 }
+
+.projects a {
+    color: blue;
+}

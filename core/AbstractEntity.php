@@ -4,7 +4,7 @@ namespace Core;
 
 abstract class AbstractEntity
 {
-    private int $id;
+    protected int $id;
 
     public function hydrate(array $data): AbstractEntity
     {
