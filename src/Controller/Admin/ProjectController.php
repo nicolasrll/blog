@@ -93,7 +93,7 @@ class ProjectController extends AdminControllerAbstract
 
     private function priorVerification(array $formValues, string $tokenName, string $failurePage): bool
     {
-        return $this->tokenCSRFIsValidated($tokenName, $failurePage, $formValues,) && $this->checkOnEmptyField($formValues, $failurePage);
+        return $this->tokenCSRFIsValidated($tokenName, $failurePage, $formValues) && $this->checkOnEmptyField($formValues, $failurePage);
     }
 
     private function tokenCSRFIsValidated(string $tokenName, string $failurePage, array $formValues): bool
