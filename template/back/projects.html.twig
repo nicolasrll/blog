@@ -3,7 +3,8 @@
 {% block content %}
     <section class="container text-center" >
         <header class="mb-4">
-            <h1>Liste des projets</h1>
+            <h1>Liste des projets ({{ projects|length }})</h1>
+            <p class="{{ classValue }}">{{ flashbag }}</p>
         </header>
         <div class="row projects">
             {% for project in projects %}
