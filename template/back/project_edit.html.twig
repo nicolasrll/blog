@@ -1,0 +1,10 @@
+{% extends "back/template.html.twig" %}
+{% block title%}Modifier un projet - Site web personnel de Nicolas Rellier{% endblock %}
+{% block content %}
+    <section class="container">
+        <header class="text-center">
+            <h1>Modifier un projet</h1>
+        </header>
+        {{ include ('back/_project_form.html.twig', {'action' : 'edit?id=' ~ project.id }) }}
+    </section>
+{% endblock content %}
