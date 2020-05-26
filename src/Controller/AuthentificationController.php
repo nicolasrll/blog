@@ -37,6 +37,7 @@ class AuthentificationController extends DefaultControllerAbstract
                 );
             }
 
+            $_SESSION['isLogged'] = true;
             $_SESSION['login'] = $user->getLogin();
             header('Location: /admin/home/');
             exit;

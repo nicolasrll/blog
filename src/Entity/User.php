@@ -7,12 +7,12 @@ use Exception;
 
 class User extends AbstractEntity
 {
+    protected const ADMIN = 'admin';
+    protected const USER = 'user';
     protected string $login = '';
     protected string $password = '';
     protected string $role = self::USER;
     protected bool $isActive = false;
-    protected const ADMIN = 'admin';
-    protected const USER = 'user';
 
     public function getLogin(): string
     {
@@ -51,7 +51,7 @@ class User extends AbstractEntity
         $existingRole = [self::ADMIN, self::USER];
 
         if (!in_array($role, $existingRole)) {
-            throw new Exception('La valeur passé n\'est pas valide');
+            throw new Exception('Le rôle ' . $role . ' saisie n\'existe pas ou n\'est pas valide');
         }
 
         $this->role = $role;

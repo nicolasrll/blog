@@ -1,6 +1,7 @@
 <?php
 
-    define('DSN' /*, mysql:host= hote a renseigner*/);
-    define('DBNAME' /*, database name value*/);
-    define('DBUSER' /*, login value*/);
-    define('DBPASSWORD' /*, password value*/);
+    // To be modified by your own configuration
+    define('DSN', 'mysql:host=localhost');
+    define('DBNAME', 'blog');
+    define('DBUSER', 'root');
+    define('DBPASSWORD', '');
