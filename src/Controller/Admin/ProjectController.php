@@ -98,13 +98,8 @@ class ProjectController extends AdminControllerAbstract
                 'flashMessage' => $flashMessage,
                 'project' => $formValues,
                 'classValue' => $classValue,
-<<<<<<< HEAD
                 'author' => 'Nicolas',
                 'linkToProject' => 'https://github.com/nicolasrll'
-=======
-                'project' => $formValues,
-                'projectId' => $projectId
->>>>>>> feat #5 : edition a project finished
             ]
         );
         return $this;
@@ -220,5 +215,4 @@ class ProjectController extends AdminControllerAbstract
             ]
         );
         return;
-    }
 }
