@@ -159,4 +159,44 @@ class ProjectController extends AdminControllerAbstract
             ]
         );
     }
+
+    public function editAction()
+    {
+        $projectId = $this->getParamAsInt('id');
+
+        if (null == $projectId) {
+            throw new Exception('Une erreur est survenue');
+        }
+
+        $projectManager = new ProjectManager();
+        $project = $projectManager->findOneById($projectId);
+
+        if (!$project) {
+            throw new Exception('Le project que vous souhaitez mettre à jour n\'est plus disponible');
+        }
+
+        if ($this->isSubmited('project'))
+        {
+            $entity = $project->hydrate($this->getFormValues('project'));
+
+            $projectEdited = $projectManager->update($entity);
+
+            return $this->renderView(
+                'back/project.html.twig',
+                [
+                    'project' => $project,
+                    'flashbag' => 'Votre project a été modifié avec succès',
+                    'classValue' => 'text-success'
+                ]
+            );
+        }
+
+        // Sinon on renvoi vers la vue projectform
+        return $this->renderView(
+            'back/project_edit.html.twig',
+            [
+                'project' => $project,
+            ]
+        );
+    }
 }
