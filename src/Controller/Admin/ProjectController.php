@@ -214,5 +214,5 @@ class ProjectController extends AdminControllerAbstract
                 'classValue' => 'text-success'
             ]
         );
-        return;
+    }
 }
