@@ -189,42 +189,20 @@ class ProjectController extends AdminControllerAbstract
         return $this;
     }
 
-    public function editAction()
+    public function deleteAction()
     {
-        $projectId = $this->getParamAsInt('id');
-
-        if (null == $projectId) {
-            throw new Exception('Une erreur est survenue');
-        }
-
+        $id = $this->getParamAsInt('id');
         $projectManager = new ProjectManager();
-        $project = $projectManager->findOneById($projectId);
+        $projectDeleted = $projectManager->delete($id);
 
-        if (!$project) {
-            throw new Exception('Le project que vous souhaitez mettre à jour n\'est plus disponible');
-        }
+        $projects = $projectManager->find();
 
-        if ($this->isSubmited('project'))
-        {
-            $entity = $project->hydrate($this->getFormValues('project'));
-
-            $projectEdited = $projectManager->update($entity);
-
-            return $this->renderView(
-                'back/project.html.twig',
-                [
-                    'project' => $project,
-                    'flashbag' => 'Votre project a été modifié avec succès',
-                    'classValue' => 'text-success'
-                ]
-            );
-        }
-
-        // Sinon on renvoi vers la vue projectform
-        return $this->renderView(
-            'back/project_edit.html.twig',
+        $this->renderView(
+            'back/projects.html.twig',
             [
-                'project' => $project,
+                'projects' => $projects,
+                'flashbag' => 'Votre project a été supprimé avec succès',
+                'classValue' => 'text-success'
             ]
         );
     }
