@@ -59,7 +59,10 @@ class ProjectController extends AdminControllerAbstract
             $author = $userManager->findOne(['login' => 'admin-p5']);
             $project->setUserId($author->getId());
             $project->setDateUpdated(date('Y-m-d H:i:s'));
-            $result = (new ProjectManager())->insert($project);
+            $projectManager = new ProjectManager();
+            $result = $projectManager->insert($project);
+
+            $projects = $projectManager->find();
 
             $classValue = 'text-danger';
             $flashbag = 'Une erreur est survenue. L\'article n\'a pas été crée';
@@ -69,10 +72,9 @@ class ProjectController extends AdminControllerAbstract
             }
 
             return  $this->renderView(
-                'back/project_new.html.twig',
+                'back/projects.html.twig',
                 [
-                    'author' => 'Nicolas',
-                    'linkToProject' => 'https://github.com/nicolasrll',
+                    'projects' => $projects,
                     'flashbag' => $flashbag,
                     'classValue' => $classValue
                 ]
