@@ -130,4 +130,22 @@ class ProjectController extends AdminControllerAbstract
             ]
         );
     }
+
+    public function deleteAction()
+    {
+        $id = $this->getParamAsInt('id');
+        $projectManager = new ProjectManager();
+        $projectDeleted = $projectManager->delete($id);
+
+        $projects = $projectManager->find();
+
+        $this->renderView(
+            'back/projects.html.twig',
+            [
+                'projects' => $projects,
+                'flashbag' => 'Votre project a été supprimé avec succès',
+                'classValue' => 'text-success'
+            ]
+        );
+    }
 }
