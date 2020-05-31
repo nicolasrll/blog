@@ -10,14 +10,14 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction(): DefaultControllerAbstract
+    public function indexAction(): void
     {
-        return $this->renderView(
+        $this->renderView(
             'authentification-admin.html.twig'
         );
     }
 
-    public function loginAction(): DefaultControllerAbstract
+    public function loginAction(): void
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
@@ -26,10 +26,8 @@ class AuthentificationController extends DefaultControllerAbstract
             if (
                 empty($user)
                 || !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
-                || !$this->roleCheck($user->getRole())
             ) {
-
-                return $this->renderView(
+                $this->renderView(
                     'authentification-admin.html.twig',
                     [
                         'message' => 'Echec dans la tentative de connexion. Veuillez réeessayer.'
@@ -43,7 +41,7 @@ class AuthentificationController extends DefaultControllerAbstract
             exit;
         }
 
-        return $this->renderView(
+        $this->renderView(
             'authentification-admin.html.twig'
         );
     }
@@ -51,15 +49,6 @@ class AuthentificationController extends DefaultControllerAbstract
     public function passwordCheck(string $passwordForm, string $password): bool
     {
         if (!password_verify($passwordForm, $password)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function roleCheck(string $role): bool
-    {
-        if ($role !== 'admin') {
             return false;
         }
 

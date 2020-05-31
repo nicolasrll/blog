@@ -12,7 +12,7 @@ class User extends AbstractEntity
     protected string $login = '';
     protected string $password = '';
     protected string $role = self::USER;
-    protected bool $isActive = false;
+    protected bool $active = false;
 
     public function getLogin(): string
     {
@@ -59,17 +59,17 @@ class User extends AbstractEntity
         return $this;
     }
 
-    public function getisActive(): bool
+    public function isActive(): bool
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
      * @param bool $isActive Must have value true or false
      */
-    public function setisActive(bool $isActive): self
+    public function setisActive(bool $active): self
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
 
         return $this;
     }
