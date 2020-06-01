@@ -14,21 +14,22 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
+            $errorMessage = $this->checkTokenCSRF($formValues['adminLoginToken']) ? NULL : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
-            $login = $formValues['login'] ? (new UserManager())->findOne(['login' => $formValues['login']]) : null;
-            //$login = $formValues['login'] ?? null;
-            $password = $formValues['password'] ?? null;
+            if ($this->checkTokenCSRF($formValues['adminLoginToken'])) {
+                $login = $formValues['login'] ? (new UserManager())->findOne(['login' => $formValues['login']]) : null;
+                $password = $formValues['password'] ?? null;
 
-            if ($this->accountIsExisting($login, $password)) {
-                $this->addUserInSession($login);
-                $this->redirectTo('/admin');
+                if ($this->accountIsExisting($login, $password)) {
+                    $this->addUserInSession($login);
+                    $this->redirectTo('/admin');
+                }
+
+                $errorMessage = 'Echec dans la tentative de connexion. Veuillez réeessayer';
             }
-
-            $errorMessage = 'Echec dans la tentative de connexion. Veuillez réeessayer';
         }
 
-        $this->hasCSRFToken();
-
+        $this->generateTokenCSRF();
         $this->renderView(
             'authentification-admin.html.twig',
             [
