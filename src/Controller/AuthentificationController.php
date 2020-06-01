@@ -12,53 +12,34 @@ class AuthentificationController extends DefaultControllerAbstract
 {
     public function indexAction()
     {
-        $this->hasCSRFToken();
-
-        return $this->renderView(
-            'authentification-admin.html.twig',
-            [
-                'titlePage' => 'Espace administrateur'
-            ]
-        );
-    }
-
-    public function loginAction()
-    {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
+            $flashbag = $this->checkValuesSubmited($formValues);
 
-            //$this->csrfTokenCheck($formValues['token']);
-
-            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
-
-            if (
-                !$this->csrfTokenCheck($formValues['token'])
-                || empty($user)
-                || !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
-                || !$this->roleCheck($user->getRole())
-            ) {
-
+            if (!empty($flashbag)) {
                 return $this->renderView(
                     'authentification-admin.html.twig',
                     [
-                        'message' => 'Echec dans la tentative de connexion. Veuillez réeessayer.'
+                        'flashbag' => $flashbag
                     ]
                 );
             }
 
+            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
             $_SESSION['login'] = $user->getLogin();
-            header('Location: /admin/home/');
+
+            header('Location: /admin/home');
             exit;
         }
 
-        $this->hasCSRFToken();
+        $this->generateTokenCSRF();
 
         return $this->renderView(
             'authentification-admin.html.twig'
         );
     }
 
-    public function passwordCheck(string $passwordForm, string $password): bool
+    public function checkPassword(string $passwordForm, string $password): bool
     {
         if (!password_verify($passwordForm, $password)) {
             return false;
@@ -80,7 +61,25 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         session_destroy();
 
-        header('Location: /authentification/login');
+        header('Location: /authentification');
         exit;
+    }
+
+    public function checkValuesSubmited($formValues)
+    {
+        $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
+
+        if ($this->checkTokenCSRF($formValues['adminLoginToken'])) {
+            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+
+            if (
+                empty($user)
+                || !$this->checkPassword($formValues['password'], $user->getPassword())
+            ) {
+                $message = 'Echec dans la tentative de connexion. Veuillez réeessayer';
+            }
+        }
+
+        return $message;
     }
 }

@@ -17,9 +17,11 @@
                 <div class="container">
                     <header class="text-center">
                         <h2>Connexion</h2>
-                        <p>{{ message }}</p>
+                        {% if flashbag is not empty %}
+                            <p class="text-danger">{{ flashbag }}</p>
+                        {% endif %}
                     </header>
-                    <form id="" class="row justify-content-center" action="/authentification/login" method="post">
+                    <form class="row justify-content-center" action="/authentification" method="post">
                         <div class="">
                             <div class="form-group">
                                 <label for="login">Login</label>
@@ -29,7 +31,7 @@
                                 <label for="password">Mot de passe</label>
                                 <input class="form-control" type="password" id="password" name="authentification[password]" required>
                             </div>
-                            <input type="hidden" name="authentification[token]" value="{{ session.token }}">
+                            <input type="hidden" name="authentification[adminLoginToken]" value="{{ session.login }}">
                             <input type="submit" class="btn btn-primary" value="Connexion"><br>
                         </div>
 
