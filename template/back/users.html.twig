@@ -1,17 +1,19 @@
 {% extends "back/template.html.twig" %}
-{% block title%}Liste des utilisateurs - Site personnel de Nicolas Rellier{% endblock %}
+{% block title%}Liste des utilisateurs - {{ commonTitle }}{% endblock %}
 {% block content %}
-    <section class="page-section text-center">
-        <header>
-            <h1>Liste des utilisateurs</h1>
-        </header>
-        {% for user in users %}
-            <p class="text-muted">
-                Id: {{ user.id }}<br>
-                Login: {{ user.login }}<br>
-                Compte: {{ user.role }}<br>
-                Statut: {{ user.isActive ? 'oui' : 'non' }}<br>
-            </p>
-        {% endfor %}
-    </section
+    <main>
+        <section class="text-center">
+            <header>
+                <h1>Liste des utilisateurs</h1>
+            </header>
+            {% for user in users %}
+                <p class="text-muted">
+                    Id: {{ user.id }}<br>
+                    Login: {{ user.login }}<br>
+                    Compte: {{ user.role }}<br>
+                    Statut: {{ user.isActive ? 'oui' : 'non' }}<br>
+                </p>
+            {% endfor %}
+        </section
+    </main>
 {% endblock content %}

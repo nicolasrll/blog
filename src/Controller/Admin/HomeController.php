@@ -6,9 +6,9 @@ use Core\AdminControllerAbstract;
 
 class HomeController extends AdminControllerAbstract
 {
-    public function indexAction()
+    public function indexAction(): void
     {
-        return $this->renderView(
+        $this->renderView(
             'back/home.html.twig'
         );
     }

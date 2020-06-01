@@ -18,11 +18,6 @@ body {
     background-color: #fff;
 }
 
-#header-admin-login {
-    background-color: #212529;
-    color: #b8a584;
-}
-
 .btn-primary:hover, #mainNav .navbar-toggler:hover {
     color: #fff;
     background-color: #fec810;
@@ -89,7 +84,13 @@ section {
 #mainNav {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background-color: #222;
+}
+
+body > header, #mainNav {
+    background-color: #222
+}
+body > header > h1 {
+    color: #b8a584;
 }
 
 #mainNav .navbar-toggler, .btn-primary {

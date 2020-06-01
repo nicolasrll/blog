@@ -10,13 +10,10 @@ use App\Entity\User;
 
 class HomeController extends DefaultControllerAbstract
 {
-    public function indexAction()
+    public function indexAction(): void
     {
-        return $this->renderView(
-            'home.html.twig',
-            [
-                'titlePage' => 'Espace administrateur'
-            ]
+        $this->renderView(
+            'home.html.twig'
         );
     }
 }

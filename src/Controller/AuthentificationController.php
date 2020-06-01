@@ -10,14 +10,15 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction()
+    public function indexAction(): void
     {
+
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
             $flashbag = $this->checkValuesSubmited($formValues);
-
+            //var_dump($flashbag);
             if (!empty($flashbag)) {
-                return $this->renderView(
+                $this->renderView(
                     'authentification-admin.html.twig',
                     [
                         'flashbag' => $flashbag
@@ -26,6 +27,7 @@ class AuthentificationController extends DefaultControllerAbstract
             }
 
             $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+            $_SESSION['isLogged'] = true;
             $_SESSION['login'] = $user->getLogin();
 
             header('Location: /admin/home');
@@ -34,7 +36,7 @@ class AuthentificationController extends DefaultControllerAbstract
 
         $this->generateTokenCSRF();
 
-        return $this->renderView(
+        $this->renderView(
             'authentification-admin.html.twig'
         );
     }
@@ -48,16 +50,7 @@ class AuthentificationController extends DefaultControllerAbstract
         return true;
     }
 
-    public function roleCheck(string $role): bool
-    {
-        if ($role !== 'admin') {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function logoutAction(): self
+    public function logoutAction(): void
     {
         session_destroy();
 
@@ -65,7 +58,7 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    public function checkValuesSubmited($formValues)
+    public function checkValuesSubmited($formValues): string
     {
         $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
