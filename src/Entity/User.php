@@ -65,7 +65,7 @@ class User extends AbstractEntity
     }
 
     /**
-     * @param bool $isActive Must have value true or false
+     * @param bool $active Must have value true or false
      */
     public function setisActive(bool $active): self
     {

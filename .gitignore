@@ -2,3 +2,4 @@
 /vendor
 /public/bootstrap
 /public/assets
+/config/conf.php

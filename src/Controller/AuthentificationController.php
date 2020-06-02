@@ -10,13 +10,12 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction(): void
+    public function indexAction(): ?self
     {
-
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
             $flashbag = $this->checkValuesSubmited($formValues);
-            //var_dump($flashbag);
+
             if (!empty($flashbag)) {
                 $this->renderView(
                     'authentification-admin.html.twig',
@@ -24,21 +23,20 @@ class AuthentificationController extends DefaultControllerAbstract
                         'flashbag' => $flashbag
                     ]
                 );
+                return $this;
             }
 
-            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
             $_SESSION['isLogged'] = true;
-            $_SESSION['login'] = $user->getLogin();
-
+            $_SESSION['login'] = (new UserManager())->findOne(['login' => $formValues['login']])->getLogin();
             header('Location: /admin/home');
             exit;
         }
 
         $this->generateTokenCSRF();
-
         $this->renderView(
             'authentification-admin.html.twig'
         );
+        return $this;
     }
 
     public function checkPassword(string $passwordForm, string $password): bool
@@ -58,7 +56,7 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    public function checkValuesSubmited($formValues): string
+    public function checkValuesSubmited(array $formValues): string
     {
         $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
