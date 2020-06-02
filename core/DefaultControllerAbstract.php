@@ -76,7 +76,7 @@ abstract class DefaultControllerAbstract
         return !empty($formTokenValue) && hash_equals($_SESSION['token'], $formTokenValue);
     }
 
-    public function generateTokenCSRF()
+    public function generateTokenCSRF(): void
     {
         // Generates a token for each interaction with the form
         $_SESSION['token'] = bin2hex(random_bytes(32));
