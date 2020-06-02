@@ -10,7 +10,7 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction(): void
+    public function indexAction(): ?self
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
@@ -36,6 +36,7 @@ class AuthentificationController extends DefaultControllerAbstract
                 'flashMessage' => $errorMessage ?? ''
             ]
         );
+        return $this;
     }
 
     private function checkPassword(string $passwordForm, string $password): bool
@@ -72,23 +73,5 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         header('Location: ' . $destination);
         exit;
-    }
-
-    public function checkValuesSubmited($formValues)
-    {
-        $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
-
-        if ($this->checkTokenCSRF($formValues['adminLoginToken'])) {
-            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
-
-            if (
-                empty($user)
-                || !$this->checkPassword($formValues['password'], $user->getPassword())
-            ) {
-                $message = 'Echec dans la tentative de connexion. Veuillez réeessayer';
-            }
-        }
-
-        return $message;
     }
 }
