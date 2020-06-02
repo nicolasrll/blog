@@ -82,7 +82,7 @@ abstract class DefaultControllerAbstract
         $_SESSION['token'] = bin2hex(random_bytes(32));
     }
 
-    public function generateTokenCSRF()
+    public function generateTokenCSRF(): void
     {
         // Generates a token for each interaction with the form
         $_SESSION['token'] = bin2hex(random_bytes(32));
