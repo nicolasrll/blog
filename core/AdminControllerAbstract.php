@@ -11,7 +11,7 @@ abstract class AdminControllerAbstract extends DefaultControllerAbstract
 {
     public function __construct()
     {
-        if (false === $this->isLogged()) {
+        if (false === $this->isLogged() || !isset($_SESSION['login'])) {
             header('Location: /authentification');
             exit;
         }
