@@ -74,7 +74,7 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    public function checkValuesSubmited($formValues)
+    public function checkValuesSubmited(array $formValues): string
     {
         $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
