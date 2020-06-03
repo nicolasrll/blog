@@ -1,5 +1,273 @@
+{% extends "template.html.twig" %}
 {% block content %}
-<main>
-    <h1>Accueil de mon site</h1>
-<main>
+<main class="container">
+    <section class="row text-center">
+        <!-- Redondant avec title dans header
+        <h1 id="toto">Nicolas Rellier</h1>
+        <h2>Développeur PHP Symfony</h2>
+        -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-12 col-sm-6">
+                <img class="img-fluid" id="profil" class="rounded mx-auto d-block" src="public/assets/img/photoblog.jpg" alt="photo présentant nicolas rellier">
+            </div>
+            <div class="col-10 col-sm-6 text-align-center my-auto">
+                Après un début de carrière dans les télécoms & réseaux, j'ai choisis de me reconvertir dans le développement web. Ce qui m'attire dans le développement c'est de répondre à une problématique et créer du code modélisant les choses de la vie courante. Vous pouvez télécharger mon CV <a href="/public/assets/img/cv_nicolas_rellier.pdf">ici</a><br>
+            </div>
+        </div>
+        <!--
+        </div><div id="container-picture">
+            <img id="picture" src="photoblog.jpg" alt="photo présentant nicolas rellier">
+        </div>
+        -->
+        <div class="row justify-content-center">
+            <h2 class="col-12">Portfolio</h2>
+            <div class="projects col-10 col-sm-6 col-lg-4">
+                <img class="preview-img" src="public/assets/img/portfolio/p1.png" alt="image du projet 1">
+                <h3>Définissez votre stratégie d'apprentissage</h3>
+                <p>Modifié le 14/04/2020</p>
+                <p>
+                Publicae multis senatui M multis senatui maximo tuo offensionibus et et quanta omnis ante ante summo publicae consensu paulo maxime auctoritatem ipso huius in cum maximo multis mihi beneficio quanta omnibus Ex beneficio maximum consensu maximum ipso hodierno iudicio senatui ipso in sit quanta in gravissimo
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project1" href="#">Voir plus</button>
+            </div>
+            <div class="projects col-10 col-sm-6 col-lg-4">
+                <img class="preview-img" src="public/assets/img/portfolio/p2.png" alt="image du projet 2">
+                <h3>Intégrez un thème Wordpress pour un client</h3>
+                <p>Modifié le 14/04/2020</p>
+                <p>
+                Publicae multis senatui M multis senatui maximo tuo offensionibus et et quanta omnis ante ante summo publicae consensu paulo maxime auctoritatem ipso huius in cum maximo multis mihi beneficio quanta omnibus Ex beneficio maximum consensu maximum ipso hodierno iudicio senatui ipso in sit quanta in gravissimo
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project2" href="#">Voir plus</button>
+            </div>
+            <div class="projects col-10 col-sm-6 col-lg-4">
+                <img class="preview-img" src="public/assets/img/portfolio/p3.jpg" alt="image du projet 3">
+                <h3>Analysez les besoins de votre client pour son festival de films</h3>
+                <p>Modifié le 14/04/2020</p>
+                <p>
+                Publicae multis senatui M multis senatui maximo tuo offensionibus et et quanta omnis ante ante summo publicae consensu paulo maxime auctoritatem ipso huius in cum maximo multis mihi beneficio quanta omnibus Ex beneficio maximum consensu maximum ipso hodierno iudicio senatui ipso in sit quanta in gravissimo
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project3" href="#">Voir plus</button>
+            </div>
+            <div class="projects col-10 col-sm-6 col-lg-4">
+                <img class="preview-img" src="public/assets/img/portfolio/p4.jpg" alt="image du projet 4">
+                <h3>Concevez la solution technique d'une application de restauration en ligne, ExpressFood</h3>
+                <p>Modifié le 14/04/2020</p>
+                <p>
+                Publicae multis senatui M multis senatui maximo tuo offensionibus et et quanta omnis ante ante summo publicae consensu paulo maxime auctoritatem ipso huius in cum maximo multis mihi beneficio quanta omnibus Ex beneficio maximum consensu maximum ipso hodierno iudicio senatui ipso in sit quanta in gravissimo
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project4" href="#">Voir plus</button>
+            </div>
+            <div class="projects col-10 col-sm-6 col-lg-4">
+                <img class="preview-img" src="public/assets/img/portfolio/p5.jpg" alt="image du projet 5">
+                <h3>Créez votre premier blog en PHP</h3>
+                <p>Modifié le 14/04/2020</p>
+                <p>
+                Publicae multis senatui M multis senatui maximo tuo offensionibus et et quanta omnis ante ante summo publicae consensu paulo maxime auctoritatem ipso huius in cum maximo multis mihi beneficio quanta omnibus Ex beneficio maximum consensu maximum ipso hodierno iudicio senatui ipso in sit quanta in gravissimo
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project5" href="#">Voir plus</button>
+            </div>
+            <div class="projects col-10 col-sm-6 col-lg-4">
+                <img class="preview-img" src="public/assets/img/portfolio/p6.jpg" alt="image du projet 6">
+                <h3>Développez de A à Z le site communautaire SnowTricks</h3>
+                <p>Modifié le 14/04/2020</p>
+                <p>
+                Publicae multis senatui M multis senatui maximo tuo offensionibus et et quanta omnis ante ante summo publicae consensu paulo maxime auctoritatem ipso huius in cum maximo multis mihi beneficio quanta omnibus Ex beneficio maximum consensu maximum ipso hodierno iudicio senatui ipso in sit quanta in gravissimo
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project6" href="#">Voir plus</button>
+            </div>
+        </div>
+    </section>
+        <!--
+        titre
+        chapo
+        contenu
+        auteur
+        date de dernière modif
+        formulaire pour ajout commentaire
+        liste des commentaires
+    -->
+    <div class="modal fade" id="project1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content container">
+                <div class="modal-header text-center row justify-content-center">
+                    <h3 class="modal-title col-12" id="exampleModalLabel">Définir sa stratégie d'apprentissage</h3>
+                    <p class="col-6">Modifié le 12/04/2020</p>
+                    <p class="col-6">Nicolas</p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row justify-content-center">
+                    <img class="col-6"src="public/assets/img/portfolio/p1.png" alt="image du projet 1">
+                    <p class="col-10"> <!-- --> chapo
+                    Futurum remissurus velamento Arctoae participemque quoque pellexit videre quos quod patruelis ut multos provinciae clemens siquid et callidus adscisceret post eum fessae quod gestum maiestatis eum proficisci vultu eum eum.
+                    </p>
+                    <p class="col-10"><!-- content -->
+                    Ipsam vero urbem Byzantiorum fuisse refertissimam atque ornatissimam signis quis ignorat? Quae illi, exhausti sumptibus bellisque maximis, cum omnis Mithridaticos impetus totumque Pontum armatum affervescentem in Asiam atque erumpentem, ore repulsum et cervicibus interclusum suis sustinerent, tum, inquam, Byzantii et postea signa illa et reliqua urbis ornanemta sanctissime custodita tenuerunt.
+
+                    Auxerunt haec vulgi sordidioris audaciam, quod cum ingravesceret penuria commeatuum, famis et furoris inpulsu Eubuli cuiusdam inter suos clari domum ambitiosam ignibus subditis inflammavit rectoremque ut sibi iudicio imperiali addictum calcibus incessens et pugnis conculcans seminecem laniatu miserando discerpsit. post cuius lacrimosum interitum in unius exitio quisque imaginem periculi sui considerans documento recenti similia formidabat.
+
+                    Abusus enim multitudine hominum, quam tranquillis in rebus diutius rexit, ex agrestibus habitaculis urbes construxit multis opibus firmas et viribus, quarum ad praesens pleraeque licet Graecis nominibus appellentur, quae isdem ad arbitrium inposita sunt conditoris, primigenia tamen nomina non amittunt, quae eis Assyria lingua institutores veteres indiderunt.
+
+                    Non ergo erunt homines deliciis diffluentes audiendi, si quando de amicitia, quam nec usu nec ratione habent cognitam, disputabunt. Nam quis est, pro deorum fidem atque hominum! qui velit, ut neque diligat quemquam nec ipse ab ullo diligatur, circumfluere omnibus copiis atque in omnium rerum abundantia vivere? Haec enim est tyrannorum vita nimirum, in qua nulla fides, nulla caritas, nulla stabilis benevolentiae potest esse fiducia, omnia semper suspecta atque sollicita, nullus locus amicitiae.
+
+                    Quapropter a natura mihi videtur potius quam ab indigentia orta amicitia, applicatione magis animi cum quodam sensu amandi quam cogitatione quantum illa res utilitatis esset habitura. Quod quidem quale sit, etiam in bestiis quibusdam animadverti potest, quae ex se natos ita amant ad quoddam tempus et ab eis ita amantur ut facile earum sensus appareat. Quod in homine multo est evidentius, primum ex ea caritate quae est inter natos et parentes, quae dirimi nisi detestabili scelere non potest; deinde cum similis sensus exstitit amoris, si aliquem nacti sumus cuius cum moribus et natura congruamus, quod in eo quasi lumen aliquod probitatis et virtutis perspicere videamur.
+                    </p>
+                    <h4 class="col-12 text-center">Commentaires</h4>
+                    <!-- Commentaire simulé 1-->
+                    <div class="col-12">
+                        <p>Posté par Dupont <span>le 15/05/2020</span></p>
+                        <p>Un bon démarage</p>
+                    </div>
+                    <!-- Commentaire simulé 2-->
+                    <div class="col-12">
+                        <p>
+                        Posté par Azerty<span>le 17/0
+                        5/2020</span>
+                        </p>
+                        <p>Intéressant</p>
+                    </div>
+                    <!-- Commentaire simulé 3-->
+                    <div class="col-12">
+                        <p>Posté par Qwerty<span>le 19/05/2020</span></p>
+                        <p>Enrichissant</p>
+                    </div>
+                    <h4 class="col-12 text-center">Commenter</h4>
+                    <form method="post" action="" class="col-12">
+                        <!-- doit être connecté donc pseudo rempli dynamiquement-->
+                        <div class="form-group">
+                            <label for="comment">Commentaire</label>
+                            <textarea id="comment" class="form-control" name="comment" required></textarea>
+                        </div>
+                        <input type="submit" value="Commenter">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="modal fade" id="project2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Définissez votre stratégie d'apprentissage</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <img class="col-6"src="public/assets/img/portfolio/p2.png" alt="image du projet 2">
+                Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+
+                Thalassius vero ea tempestate praefectus praetorio praesens ipse quoque adrogantis ingenii, considerans incitationem eius ad multorum augeri discrimina, non maturitate vel consiliis mitigabat, ut aliquotiens celsae potestates iras principum molliverunt, sed adversando iurgandoque cum parum congrueret, eum ad rabiem potius evibrabat, Augustum actus eius exaggerando creberrime docens, idque, incertum qua mente, ne lateret adfectans. quibus mox Caesar acrius efferatus, velut contumaciae quoddam vexillum altius erigens, sine respectu salutis alienae vel suae ad vertenda opposita instar rapidi fluminis irrevocabili impetu ferebatur.
+
+                Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="modal fade" id="project3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Analysez les besoins de votre client pour son festival de films</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <img class="col-6"src="public/assets/img/portfolio/p3.jpg" alt="image du projet 3">
+                Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+
+                Thalassius vero ea tempestate praefectus praetorio praesens ipse quoque adrogantis ingenii, considerans incitationem eius ad multorum augeri discrimina, non maturitate vel consiliis mitigabat, ut aliquotiens celsae potestates iras principum molliverunt, sed adversando iurgandoque cum parum congrueret, eum ad rabiem potius evibrabat, Augustum actus eius exaggerando creberrime docens, idque, incertum qua mente, ne lateret adfectans. quibus mox Caesar acrius efferatus, velut contumaciae quoddam vexillum altius erigens, sine respectu salutis alienae vel suae ad vertenda opposita instar rapidi fluminis irrevocabili impetu ferebatur.
+
+                Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="modal fade" id="project4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Concevez la solution technique d'une application de restauration en ligne, ExpressFood</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <img class="col-6"src="public/assets/img/portfolio/p4.jpg" alt="image du projet 4">
+                Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+
+                Thalassius vero ea tempestate praefectus praetorio praesens ipse quoque adrogantis ingenii, considerans incitationem eius ad multorum augeri discrimina, non maturitate vel consiliis mitigabat, ut aliquotiens celsae potestates iras principum molliverunt, sed adversando iurgandoque cum parum congrueret, eum ad rabiem potius evibrabat, Augustum actus eius exaggerando creberrime docens, idque, incertum qua mente, ne lateret adfectans. quibus mox Caesar acrius efferatus, velut contumaciae quoddam vexillum altius erigens, sine respectu salutis alienae vel suae ad vertenda opposita instar rapidi fluminis irrevocabili impetu ferebatur.
+
+                Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="modal fade" id="project5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Créez votre premier blog en PHP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <img class="col-6"src="public/assets/img/portfolio/p5.jpg" alt="image du projet 5">
+                Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+
+                Thalassius vero ea tempestate praefectus praetorio praesens ipse quoque adrogantis ingenii, considerans incitationem eius ad multorum augeri discrimina, non maturitate vel consiliis mitigabat, ut aliquotiens celsae potestates iras principum molliverunt, sed adversando iurgandoque cum parum congrueret, eum ad rabiem potius evibrabat, Augustum actus eius exaggerando creberrime docens, idque, incertum qua mente, ne lateret adfectans. quibus mox Caesar acrius efferatus, velut contumaciae quoddam vexillum altius erigens, sine respectu salutis alienae vel suae ad vertenda opposita instar rapidi fluminis irrevocabili impetu ferebatur.
+
+                Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="modal fade" id="project6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Développez de A à Z le site communautaire SnowTricks</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <img class="col-6"src="public/assets/img/portfolio/p6.jpg" alt="image du projet 6">
+                Ut enim quisque sibi plurimum confidit et ut quisque maxime virtute et sapientia sic munitus est, ut nullo egeat suaque omnia in se ipso posita iudicet, ita in amicitiis expetendis colendisque maxime excellit. Quid enim? Africanus indigens mei? Minime hercule! ac ne ego quidem illius; sed ego admiratione quadam virtutis eius, ille vicissim opinione fortasse non nulla, quam de meis moribus habebat, me dilexit; auxit benevolentiam consuetudo. Sed quamquam utilitates multae et magnae consecutae sunt, non sunt tamen ab earum spe causae diligendi profectae.
+
+                Thalassius vero ea tempestate praefectus praetorio praesens ipse quoque adrogantis ingenii, considerans incitationem eius ad multorum augeri discrimina, non maturitate vel consiliis mitigabat, ut aliquotiens celsae potestates iras principum molliverunt, sed adversando iurgandoque cum parum congrueret, eum ad rabiem potius evibrabat, Augustum actus eius exaggerando creberrime docens, idque, incertum qua mente, ne lateret adfectans. quibus mox Caesar acrius efferatus, velut contumaciae quoddam vexillum altius erigens, sine respectu salutis alienae vel suae ad vertenda opposita instar rapidi fluminis irrevocabili impetu ferebatur.
+
+                Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+      </div>
+    </div>
+
+</main>
 {% endblock %}

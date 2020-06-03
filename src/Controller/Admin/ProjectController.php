@@ -40,7 +40,7 @@ class ProjectController extends AdminControllerAbstract
             $formValues = $this->getFormValues('project');
             $classValue = 'text-danger';
 
-            if (!$this->csrfTokenCheck($formValues['token'])) {
+            if (!$this->checkTokenCSRF($formValues['token'])) {
 
                 return $this->renderView(
                     'back/project_new.html.twig',
@@ -81,7 +81,7 @@ class ProjectController extends AdminControllerAbstract
             );
         }
 
-        $this->hasCSRFToken();
+        $this->generateTokenCSRF();
 
         return $this->renderView(
             'back/project_new.html.twig',

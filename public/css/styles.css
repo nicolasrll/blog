@@ -44,11 +44,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.3rem;
 }
 
 h2 {
-    font-size: 1.7rem;
+    font-size: 2rem;
 }
 
 h3 {
@@ -126,14 +126,14 @@ header.masthead {
     background-size: cover;
 }
 
-header.masthead .masthead-subheading {
+header.masthead .masthead-subheading h2{
     font-size: 1.5rem;
     font-style: italic;
     line-height: 1.5rem;
     margin-bottom: 25px;
 }
-header.masthead .masthead-heading {
-    font-size: 3.25rem;
+header.masthead .masthead-heading h1{
+    font-size: 2.5rem;
     font-weight: 700;
     line-height: 3.25rem;
     margin-bottom: 2rem;
@@ -177,17 +177,24 @@ header.masthead .masthead-heading {
         padding-top: 17rem;
         padding-bottom: 12.5rem;
   }
-    header.masthead .masthead-subheading {
+    header.masthead .masthead-subheading h2 {
         font-size: 2.25rem;
         font-style: italic;
         line-height: 2.25rem;
         margin-bottom: 2rem;
   }
-    header.masthead .masthead-heading {
+    header.masthead .masthead-heading h1 {
         font-size: 4.5rem;
         font-weight: 700;
         line-height: 4.5rem;
         margin-bottom: 4rem;
+    }
+
+    .projects h3 {
+        height: 5em;
+    }
+    .projects {
+        margin-bottom: 8em;
     }
 }
 
@@ -203,8 +210,26 @@ header.masthead .masthead-heading {
     h3 {
         font-size: 1.2rem;
     }
+
+    .projects {
+        margin-bottom: 5em;
+    }
 }
 
 .projects a {
     color: blue;
 }
+
+.modal-title{
+    height: 40%;
+}
+
+.preview-img{
+    height: 15em;
+    max-width: 100%;
+}
+
+#profil {
+    height: 25em;
+
+
