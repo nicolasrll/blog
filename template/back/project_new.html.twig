@@ -6,6 +6,6 @@
             <h1>Créer un projet</h1>
             <p class="{{ classValue }}">{{ flashbag }}</p>
         </header>
-        {{ include ('back/_project_form.html.twig', {'action' : 'new' }) }}
+        {{ include ('back/_project_form.html.twig', {'action' : 'new', 'author' : 'Nicolas', 'linkToProject' : 'https://github.com/nicolasrll', 'classValue' : 'text-danger' }) }}
     </section>
 {% endblock content %}
