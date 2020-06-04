@@ -14,10 +14,7 @@ class Project extends AbstractEntity
     protected string $author = '';
     protected string $dateUpdated = '';
     protected string $linkToProject = '';
-<<<<<<< HEAD
     protected string $linkToPicture = '';
-=======
->>>>>>> feat #4 : project controller, entity and manager created with its templates project list, project and add project. And CSRF implemented.
 
     public function getUserId(): int
     {
@@ -102,7 +99,6 @@ class Project extends AbstractEntity
 
         return $this;
     }
-<<<<<<< HEAD
 
     public function getlinkToPicture(): string
     {
@@ -115,6 +111,4 @@ class Project extends AbstractEntity
 
         return $this;
     }
-=======
->>>>>>> feat #4 : project controller, entity and manager created with its templates project list, project and add project. And CSRF implemented.
 }
