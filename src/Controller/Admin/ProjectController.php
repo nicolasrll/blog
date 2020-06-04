@@ -23,6 +23,7 @@ class ProjectController extends AdminControllerAbstract
     public function seeAction(): void
     {
         $projectId = $this->getParamAsInt('id');
+        $project = $projectManager->findOneById($projectId);
         $this->renderView(
             'back/project.html.twig',
             [
@@ -207,43 +208,23 @@ class ProjectController extends AdminControllerAbstract
         );
     }
 
-    public function editAction()
+    public function tokenCSRFValidated($formValues): bool
     {
-        $projectId = $this->getParamAsInt('id');
-
-        if (null == $projectId) {
-            throw new Exception('Une erreur est survenue');
-        }
-
-        $projectManager = new ProjectManager();
-        $project = $projectManager->findOneById($projectId);
-
-        if (!$project) {
-            throw new Exception('Le project que vous souhaitez mettre à jour n\'est plus disponible');
-        }
-
-        if ($this->isSubmited('project'))
-        {
-            $entity = $project->hydrate($this->getFormValues('project'));
-
-            $projectEdited = $projectManager->update($entity);
-
-            return $this->renderView(
-                'back/project.html.twig',
+        if (!$this->csrfTokenCheck($formValues['newProjectToken'])) {
+            $this->renderView(
+                'back/project_new.html.twig',
                 [
-                    'project' => $project,
-                    'flashbag' => 'Votre project a été modifié avec succès',
-                    'classValue' => 'text-success'
+                    'flashbag' => 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.',
+                    'classValue' => 'text-danger',
+                    'author' => 'Nicolas',
+                    'linkToProject' => 'https://github.com/nicolasrll',
+                    'project' => $formValues
                 ]
             );
+
+            return false;
         }
 
-        // Sinon on renvoi vers la vue projectform
-        return $this->renderView(
-            'back/project_edit.html.twig',
-            [
-                'project' => $project,
-            ]
-        );
+        return true;
     }
 }
