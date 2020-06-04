@@ -29,6 +29,7 @@ class ProjectController extends AdminControllerAbstract
                 'project' => (new ProjectManager())->findOneById($projectId)
             ]
         );
+
         return $this;
     }
 
@@ -198,5 +199,27 @@ class ProjectController extends AdminControllerAbstract
                 'project' => $project,
             ]
         );
+
+        return $this;
+    }
+
+    public function tokenCSRFValidated($formValues): bool
+    {
+        if (!$this->csrfTokenCheck($formValues['newProjectToken'])) {
+            $this->renderView(
+                'back/project_new.html.twig',
+                [
+                    'flashbag' => 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.',
+                    'classValue' => 'text-danger',
+                    'author' => 'Nicolas',
+                    'linkToProject' => 'https://github.com/nicolasrll',
+                    'project' => $formValues
+                ]
+            );
+
+            return false;
+        }
+
+        return true;
     }
 }
