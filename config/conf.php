@@ -1,6 +1,6 @@
 <?php
 
     define('DSN', 'mysql:host=localhost');
-    define('DBNAME', 'blog');
-    define('DBUSER', 'nicolas');
+    define('DBNAME', 'blog-test');
+    define('DBUSER', 'root');
     define('DBPASSWORD', 'root');

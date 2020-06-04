@@ -9,9 +9,9 @@ use App\Entity\Project;
 
 class ProjectController extends AdminControllerAbstract
 {
-    public function indexAction()
+    public function indexAction(): void
     {
-        return $this->renderView(
+        $this->renderView(
             'back/projects.html.twig',
             [
                 'projects' => (new ProjectManager())->find()
@@ -19,76 +19,84 @@ class ProjectController extends AdminControllerAbstract
         );
     }
 
-    public function seeAction()
+    public function seeAction(): self
     {
         $projectManager = new ProjectManager();
         $projectId = $this->getParamAsInt('id');
         $project = $projectManager->findOneById($projectId);
-
-        return $this->renderView(
+        $this->renderView(
             'back/project.html.twig',
             [
                 'project' => $project,
             ]
         );
+
+        return $this;
     }
 
-    public function newAction()
+    public function newAction(): self
     {
         if ($this->isSubmited('project')) {
             $formValues = $this->getFormValues('project');
-            $classValue = 'text-danger';
 
-            if (!$this->csrfTokenCheck($formValues['token'])) {
-
-                return $this->renderView(
-                    'back/project_new.html.twig',
-                    [
-                        'flashbag' => 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.',
-                        'classValue' => $classValue,
-                        'author' => 'Nicolas',
-                        'linkToProject' => 'https://github.com/nicolasrll'
-                    ]
-                );
+            if ($this->tokenCSRFValidated($formValues)) {
+                $author = (new UserManager())->findOne(['login' => 'admin-p5']);
+                $project = (new Project())->hydrate($formValues)->setUserId($author->getId())->setDateUpdated(date('Y-m-d H:i:s'));
+                $result = (new ProjectManager())->insert($project);
+                $this->checkInsertion($result);
             }
 
-            $project = (new Project())->hydrate($formValues);
-
-            $userManager = new UserManager();
-            $author = $userManager->findOne(['login' => 'admin-p5']);
-            $project->setUserId($author->getId());
-            $project->setDateUpdated(date('Y-m-d H:i:s'));
-            $projectManager = new ProjectManager();
-            $result = $projectManager->insert($project);
-
-            $projects = $projectManager->find();
-
-            $classValue = 'text-danger';
-            $flashbag = 'Une erreur est survenue. L\'article n\'a pas été crée';
-            if ($result) {
-                $classValue = 'text-success';
-                $flashbag = 'L\'article a été créé avec succès.';
-            }
-
-            return  $this->renderView(
-                'back/projects.html.twig',
-                [
-                    'projects' => $projects,
-                    'flashbag' => $flashbag,
-                    'classValue' => $classValue
-                ]
-            );
+            return $this;
         }
 
         $this->hasCSRFToken();
+        $this->renderView(
+            'back/project_new.html.twig'
+        );
 
-        return $this->renderView(
-            'back/project_new.html.twig',
+        return $this;
+    }
+
+    public function checkInsertion($result): self
+    {
+        $classValue = 'text-danger';
+        $flashbag = 'Une erreur est survenue. L\'article n\'a pas été crée';
+
+        if ($result) {
+            $classValue = 'text-success';
+            $flashbag = 'L\'article a été créé avec succès.';
+        }
+
+        $projects = (new ProjectManager())->find();
+        $this->renderView(
+            'back/projects.html.twig',
             [
-                'author' => 'Nicolas',
-                'linkToProject' => 'https://github.com/nicolasrll',
-                'classValue' => 'text-danger'
+                'projects' => $projects,
+                'flashbag' => $flashbag,
+                'classValue' => $classValue
             ]
         );
+
+        return $this;
+    }
+
+    public function tokenCSRFValidated($formValues): bool
+    {
+        if (!$this->csrfTokenCheck($formValues['newProjectToken'])) {
+            $this->renderView(
+                'back/project_new.html.twig',
+                [
+                    'flashbag' => 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.',
+                    'classValue' => 'text-danger',
+                    'author' => 'Nicolas',
+                    'linkToProject' => 'https://github.com/nicolasrll',
+                    'project' => $formValues
+                ]
+            );
+
+            return false;
+        }
+
+        return true;
     }
 }
