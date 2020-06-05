@@ -9,9 +9,11 @@
         <section class="container">
                 <header class="text-center">
                     <h2>Connexion</h2>
-                    <p>{{ message }}</p>
+                    {% if flashbag is not empty %}
+                        <p class="text-danger">{{ flashbag }}</p>
+                    {% endif %}
                 </header>
-                <form id="" class="row justify-content-center" action="/authentification/login" method="post">
+                <form id="" class="row justify-content-center" action="/authentification/" method="post">
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
                             <label for="login">Login</label>

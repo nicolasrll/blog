@@ -12,32 +12,22 @@ class AuthentificationController extends DefaultControllerAbstract
 {
     public function indexAction(): void
     {
-        $this->renderView(
-            'authentification-admin.html.twig'
-        );
-    }
-
-    public function loginAction(): void
-    {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
-            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
 
-            if (
-                empty($user)
-                || !$this->passwordCheck($formValues['password'], $user->getPassword($user->getPassword()))
-            ) {
+            if (!$this->checkValuesSubmited($formValues)) {
                 $this->renderView(
                     'authentification-admin.html.twig',
                     [
-                        'message' => 'Echec dans la tentative de connexion. Veuillez réeessayer.'
+                        'flashbag' => 'Echec dans la tentative de connexion. Veuillez réeessayer'
                     ]
                 );
+                return;
             }
 
             $_SESSION['isLogged'] = true;
-            $_SESSION['login'] = $user->getLogin();
-            header('Location: /admin/home/');
+            $_SESSION['login'] = (new UserManager())->findOne(['login' => $formValues['login']])->getLogin();
+            header('Location: /admin/home');
             exit;
         }
 
@@ -46,20 +36,30 @@ class AuthentificationController extends DefaultControllerAbstract
         );
     }
 
-    public function passwordCheck(string $passwordForm, string $password): bool
+    public function checkPassword(string $passwordForm, string $password): bool
     {
-        if (!password_verify($passwordForm, $password)) {
-            return false;
-        }
-
-        return true;
+        return password_verify($passwordForm, $password);
     }
 
     public function logoutAction(): void
     {
         session_destroy();
 
-        header('Location: /authentification/login');
+        header('Location: /authentification');
         exit;
+    }
+
+    public function checkValuesSubmited(array $formValues): bool
+    {
+        $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+
+        if (
+            empty($user)
+            || !$this->checkPassword($formValues['password'], $user->getPassword())
+        ) {
+            return false;
+        }
+
+        return true;
     }
 }
