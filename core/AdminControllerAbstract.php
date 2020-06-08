@@ -20,7 +20,7 @@ abstract class AdminControllerAbstract extends DefaultControllerAbstract
             ->findOne(['login' => $_SESSION['login']])
             ->getRole();
 
-        if(!$this->checkRole($userRole)) {
+        if (!$this->checkRole($userRole)) {
             throw new Exception('Accès refusé.');
         }
     }
