@@ -39,7 +39,7 @@ class ProjectController extends AdminControllerAbstract
         if ($this->isSubmited('project')) {
             $formValues = $this->getFormValues('project');
 
-            if ($this->tokenCSRFValidated($formValues)) {
+            if ($this->tokenCSRFIsValidated($formValues)) {
                 $author = (new UserManager())->findOne(['login' => 'admin-p5']);
                 $project = (new Project())->hydrate($formValues)->setUserId($author->getId())->setDateUpdated(date('Y-m-d H:i:s'));
                 $result = (new ProjectManager())->insert($project);
@@ -49,11 +49,23 @@ class ProjectController extends AdminControllerAbstract
             return $this;
         }
 
-        $this->hasCSRFToken();
-        $this->renderView(
-            'back/project_new.html.twig'
-        );
+        $this->generateTokenCSRF();
+        $this->returnNewProjectForm();
+        return $this;
+    }
 
+    public function returnNewProjectForm($flashbag = '', $classValue = '', $formValues = ''): self
+    {
+        $this->renderView(
+            'back/project_new.html.twig',
+            [
+                'flashbag' => $flashbag,
+                'classValue' => $classValue,
+                'author' => 'Nicolas',
+                'linkToProject' => 'https://github.com/nicolasrll',
+                'project' => $formValues
+            ]
+        );
         return $this;
     }
 
@@ -67,6 +79,12 @@ class ProjectController extends AdminControllerAbstract
             $flashbag = 'L\'article a été créé avec succès.';
         }
 
+        if (!$result) {
+            $formValues = $this->getFormValues('project');
+            $this->returnNewProjectForm($flashbag, $classValue, $formValues);
+            return $this;
+        }
+
         $projects = (new ProjectManager())->find();
         $this->renderView(
             'back/projects.html.twig',
@@ -76,24 +94,15 @@ class ProjectController extends AdminControllerAbstract
                 'classValue' => $classValue
             ]
         );
-
         return $this;
     }
 
-    public function tokenCSRFValidated($formValues): bool
+    public function tokenCSRFIsValidated($formValues): bool
     {
-        if (!$this->csrfTokenCheck($formValues['newProjectToken'])) {
-            $this->renderView(
-                'back/project_new.html.twig',
-                [
-                    'flashbag' => 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.',
-                    'classValue' => 'text-danger',
-                    'author' => 'Nicolas',
-                    'linkToProject' => 'https://github.com/nicolasrll',
-                    'project' => $formValues
-                ]
-            );
-
+        if (!$this->checkTokenCSRF($formValues['tokenNewProject'])) {
+            $flashbag = 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.';
+            $classValue = 'text-danger';
+            $this->returnNewProjectForm($flashbag, $classValue, $formValues);
             return false;
         }
 
