@@ -12,6 +12,7 @@
                 </header>
                 <a class="btn btn-primary btn-block" href="/admin/project/edit?id={{ projectId }}" role="button">Modifier</a>
                 <a class="btn btn-danger btn-block col-3 mx-auto mx-sm-5 mb-3" href="/admin/project/delete?id={{ project.id }}" role="button">Supprimer</a>
+
                 <p class="col-sm-4">{{ project.author }}</p>
                 <p class=" col-sm-4">{{ project.dateUpdated }}</p>
                 <p class="col-sm-4"><a href="{{ project.linkToProject

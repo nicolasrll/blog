@@ -197,7 +197,6 @@ class ProjectController extends AdminControllerAbstract
         $projectDeleted = $projectManager->delete($id);
 
         $projects = $projectManager->find();
-
         $this->renderView(
             'back/projects.html.twig',
             [
@@ -206,25 +205,5 @@ class ProjectController extends AdminControllerAbstract
                 'classValue' => 'text-success'
             ]
         );
-    }
-
-    public function tokenCSRFValidated($formValues): bool
-    {
-        if (!$this->csrfTokenCheck($formValues['newProjectToken'])) {
-            $this->renderView(
-                'back/project_new.html.twig',
-                [
-                    'flashbag' => 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.',
-                    'classValue' => 'text-danger',
-                    'author' => 'Nicolas',
-                    'linkToProject' => 'https://github.com/nicolasrll',
-                    'project' => $formValues
-                ]
-            );
-
-            return false;
-        }
-
-        return true;
     }
 }
