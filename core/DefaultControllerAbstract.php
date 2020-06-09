@@ -17,7 +17,8 @@ abstract class DefaultControllerAbstract
         $loader = new FilesystemLoader('template/');
         $twig = new Environment($loader);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
-        $twig->addGlobal('session', $_SESSION); // share php session variable
+        // share php session variable
+        $twig->addGlobal('session', $_SESSION);
 
         echo $twig->render($view, $params);
     }
@@ -55,22 +56,21 @@ abstract class DefaultControllerAbstract
         return true;
     }
 
-    public function hasCSRFToken()
+    public function generateTokenCSRF(): void
     {
         // Generates a token for each interaction with the form
         $_SESSION['token'] = bin2hex(random_bytes(32));
     }
 
-    public function csrfTokenCheck($formTokenValue): bool
+    public function checkTokenCSRF($formTokenValue): bool
     {
-        if (!empty($formTokenValue)) {
-            if(!hash_equals($_SESSION['token'], $formTokenValue)) {
-                //throw new Exception('Un problème a été rencontré. Veuillez recommencer.');
-                return false;
+        if (!empty($formTokenValue) && isset($formTokenValue)) {
+            if(hash_equals($_SESSION['token'], $formTokenValue)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }
 

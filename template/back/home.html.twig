@@ -1,26 +1,28 @@
 {% extends "back/template.html.twig" %}
-{% block title %}Accueil de l'espace d'administration - Blog de Nicolas Rellier{% endblock %}
+{% block title %} Accueil - {{ commonTitle }}{% endblock %}
 {% block content %}
-    <section class="page-section text-center">
-        <header>
-            <h1 class="section-heading">Espace administration</h1>
-            <p class="section-subheading text-muted">Tu es connecté en tant que {{ session.login }}</p>
-        </header>
-        <article class="">
-            <h2 class="section-heading ">Projets</h2>
-            <p class="text-muted">Liste des 5 derniers projets:</p>
-        </article>
-        <article class="">
-            <h2 class="section-heading  col- ">Utilisateurs</h2>
-            <p class="text-muted">Liste des 5 derniers utilisateurs inscrits:</p>
-        </article>
-        <article class="">
-            <h2 class="section-heading ">Nouveaux commentaires</h2>
-            <p class="text-muted">Liste des 5 derniers nouveaux commentaires en attentes de validation: </p>
-        </article>
-        <article class="">
-        <h2 class="section-heading ">Commentaires</h2>
-        <p class="text-muted">Liste des 5 derniers commentaires validés:</p>
-        </article>
-    </section>
+    <main>
+        <section class="text-center">
+            <header>
+                <h1>Espace administration</h1>
+                <p class="text-muted">Tu es connecté en tant que {{ session.login }}</p>
+            </header>
+            <article>
+                <h2 class="mt-5">Projets</h2>
+                <p class="text-muted">Liste des 5 derniers projets:</p>
+            </article>
+            <article>
+                <h2 class="mt-5">Utilisateurs</h2>
+                <p class="text-muted">Liste des 5 derniers utilisateurs inscrits:</p>
+            </article>
+            <article>
+                <h2 class="mt-5">Nouveaux commentaires</h2>
+                <p class="text-muted">Liste des 5 derniers nouveaux commentaires en attentes de validation: </p>
+            </article>
+            <article>
+            <h2 class=" mt-5">Commentaires</h2>
+            <p class="text-muted">Liste des 5 derniers commentaires validés:</p>
+            </article>
+        </section>
+    </main>
 {% endblock %}

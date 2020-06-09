@@ -1,11 +1,13 @@
 {% extends "back/template.html.twig" %}
-{% block title%}Créer un projet - Site web personnel de Nicolas Rellier{% endblock %}
+{% block title%}Créer un projet - {{ commonTitle }}{% endblock %}
 {% block content %}
     <section class="container">
         <header class="text-center">
             <h1>Créer un projet</h1>
-            <p class="{{ classValue }}">{{ flashbag }}</p>
+            {% if flashbag is not empty %}
+                <p class="{{ classValue }}">{{ flashbag }}</p>
+            {% endif %}
         </header>
-        {{ include ('back/_project_form.html.twig', {'action' : 'new' }) }}
+        {{ include ('back/_project_form.html.twig', {'action' : 'new', 'author' : 'Nicolas', 'linkToProject' : 'https://github.com/nicolasrll', 'classValue' : 'text-danger' }) }}
     </section>
 {% endblock content %}
