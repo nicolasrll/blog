@@ -29,7 +29,6 @@ class ProjectController extends AdminControllerAbstract
                 'project' => (new ProjectManager())->findOneById($projectId)
             ]
         );
-
         return $this;
     }
 
@@ -52,51 +51,108 @@ class ProjectController extends AdminControllerAbstract
         }
 
         $this->generateTokenCSRF();
-        $this->renderNewProjectForm();
+        $this->renderView('back/project_new.html.twig');
         return $this;
     }
 
-    private function renderNewProjectForm(string $flashMessage = '', array $formValues = [], string $classValue = ''): self
+    public function editAction(): void
     {
+        $project = $this->checkProjectExistence();
+        $projectId = $project->getId();
+
+        if ($this->isSubmited('project'))
+        {
+            $formValues = $this->getFormValues('project');
+
+            if($this->tokenCSRFIsValidated('tokenEditProject' ,'back/project_edit.html.twig', $formValues, $project->getId())) {
+                $this->editProject($project, $formValues);
+            }
+
+            return;
+        }
+
+        // Sinon on renvoi vers la vue projectform
         $this->renderView(
-            'back/project_new.html.twig',
+            'back/project_edit.html.twig',
+            [
+                'project' => $project,
+                'projectId' => $projectId
+            ]
+        );
+        //$this->returnProjectForm('back/project_edit.html.twig', $project);
+        return;
+    }
+
+    /*
+    public function returnProjectForm(
+        string $viewName,
+        array $formValues = [],
+        string $flashbag = '',
+        string $classValue = '',
+        string $projectId = ''
+    ): self {
+        var_dump($formValues); die();
+        $this->renderView(
+            $viewName,
             [
                 'flashMessage' => $flashMessage,
                 'project' => $formValues,
                 'classValue' => $classValue,
+<<<<<<< HEAD
                 'author' => 'Nicolas',
                 'linkToProject' => 'https://github.com/nicolasrll'
+=======
+                'project' => $formValues,
+                'projectId' => $projectId
+>>>>>>> feat #5 : edition a project finished
+            ]
+        );
+        return $this;
+    }
+    */
+
+    public function checkInsertion(string $result, array $formValues): self
+    {
+        $viewName = 'back/project_new.html.twig';
+        $flashbag = 'Une erreur est survenue. Le projet n\'a pas été crée';
+        $classValue = 'text-danger';
+
+        if ($result) {
+            $viewName = 'back/projects.html.twig';
+            $flashbag = 'Le projet a été créé avec succès.';
+            $classValue = 'text-success';
+            $projects = (new ProjectManager())->find();
+        }
+
+        //$formValues = $this->getFormValues('project');
+        $this->renderView(
+            $viewName,
+            [
+                'project' => $formValues,
+                'flashbag' => $flashbag,
+                'classValue' => $classValue,
+                'projects' => $projects
             ]
         );
         return $this;
     }
 
-    private function renderViewOnCheckInsertion(bool $result): self
+    public function tokenCSRFIsValidated(string $tokenName, string $viewOfFail, array $formValues, string $projectId = ''): bool
     {
-        if ($result) {
+        if (!$this->checkTokenCSRF($formValues[$tokenName])) {
+            $flashbag = 'La création du projet a échoué. Les jetons CSRF ne correspondent pas.';
+            $classValue = 'text-danger';
             $this->renderView(
-                'back/projects.html.twig',
+                $viewOfFail,
                 [
-                    'projects' => (new ProjectManager())->find(),
-                    'flashMessage' => 'L\'article a été créé avec succès.',
-                    'classValue' => 'text-success'
+                    'project' => $formValues,
+                    'flashbag' => $flashbag,
+                    'classValue' => $classValue,
+                    'projectId' => $projectId
                 ]
             );
-            return $this;
-        }
 
-        $this->renderNewProjectForm(
-            'Une erreur est survenue. L\'article n\'a pas été crée',
-            $this->getFormValues('project'),
-            'text-danger'
-        );
-        return $this;
-    }
-
-    private function tokenCSRFIsValidated(array $formValues): bool
-    {
-        if ($this->checkTokenCSRF($formValues['tokenNewProject'])) {
-            return true;
+            return false;
         }
 
         $this->renderNewProjectForm(
@@ -121,43 +177,48 @@ class ProjectController extends AdminControllerAbstract
         return false;
     }
 
-    public function editAction()
+    public function checkProjectExistence(): Project
     {
         $projectId = $this->getParamAsInt('id');
 
         if (null == $projectId) {
-            throw new Exception('Une erreur est survenue');
+            throw new Exception('Une erreur est survenue.');
         }
 
-        $projectManager = new ProjectManager();
-        $project = $projectManager->findOneById($projectId);
+        $project = (new ProjectManager())->findOneById($projectId);
 
         if (!$project) {
             throw new Exception('Le project que vous souhaitez mettre à jour n\'est plus disponible');
         }
 
-        if ($this->isSubmited('project'))
-        {
-            $entity = $project->hydrate($this->getFormValues('project'));
+        return $project;
+    }
 
-            $projectEdited = $projectManager->update($entity);
+    public function editProject($project, $formValues): void
+    {
+        $entity = $project->hydrate($formValues);
+        $projectEdited = (new ProjectManager())->update($entity);
 
-            return $this->renderView(
-                'back/project.html.twig',
+        if (!$projectEdited) {
+            $this->renderView(
+                'back/project_edit.html.twig',
                 [
-                    'project' => $project,
-                    'flashbag' => 'Votre project a été modifié avec succès',
-                    'classValue' => 'text-success'
+                    'project' => $formValues,
+                    'flashbag' => 'Votre article n\'a pas pu être modifié. Veuillez réessayer.',
+                    'classValue' => 'text-danger'
                 ]
             );
+            return;
         }
 
-        // Sinon on renvoi vers la vue projectform
-        return $this->renderView(
-            'back/project_edit.html.twig',
+        $this->renderView(
+            'back/project.html.twig',
             [
                 'project' => $project,
+                'flashbag' => 'Votre project a été modifié avec succès',
+                'classValue' => 'text-success'
             ]
         );
+        return;
     }
 }
