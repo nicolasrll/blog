@@ -8,6 +8,6 @@
                 <p class="{{ classValue }}">{{ flashMessage }}</p>
             {% endif %}
         </header>
-        {{ include ('back/_project_form.html.twig', {'action' : 'new', 'author' : 'Nicolas', 'linkToProject' : 'https://github.com/nicolasrll', 'classValue' : 'text-danger' }) }}
+        {{ include ('back/_project_form.html.twig', {'action' : 'new', 'author' : 'Nicolas', 'linkToProject' : 'https://github.com/nicolasrll', 'classValue' : 'text-danger', 'tokenName' : 'tokenNewProject'}) }}
     </section>
 {% endblock content %}
