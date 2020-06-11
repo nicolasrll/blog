@@ -31,7 +31,6 @@ class ProjectController extends AdminControllerAbstract
                 'projectId' => $projectId
             ]
         );
-        return;
     }
 
     public function newAction(): void
@@ -135,7 +134,7 @@ class ProjectController extends AdminControllerAbstract
         return false;
     }
 
-    public function checkProjectExistence(int $projectId): ?Project
+    private function checkProjectExistence(int $projectId): ?Project
     {
         if (null !== $projectId) {
             $project = (new ProjectManager())->findOneById($projectId);
@@ -205,5 +204,6 @@ class ProjectController extends AdminControllerAbstract
                 'classValue' => 'text-success'
             ]
         );
+        return;
     }
 }
