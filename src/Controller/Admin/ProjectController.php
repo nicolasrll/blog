@@ -71,6 +71,7 @@ class ProjectController extends AdminControllerAbstract
         }
 
         // Sinon on renvoi vers la vue projectform
+        $this->generateTokenCSRF();
         $this->renderView(
             'back/project_edit.html.twig',
             [
@@ -78,7 +79,6 @@ class ProjectController extends AdminControllerAbstract
                 'projectId' => $projectId
             ]
         );
-        //$this->returnProjectForm('back/project_edit.html.twig', $project);
         return;
     }
 
