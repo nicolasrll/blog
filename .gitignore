@@ -1,5 +1,4 @@
 .idea/
 /vendor
-/public/bootstrap
-/public/assets
+/public
 /config/conf.php

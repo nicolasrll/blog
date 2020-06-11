@@ -64,14 +64,13 @@ abstract class DefaultControllerAbstract
 
     public function checkTokenCSRF($formTokenValue): bool
     {
-        if (!empty($formTokenValue)) {
-            if(!hash_equals($_SESSION['token'], $formTokenValue)) {
-                //throw new Exception('Un problème a été rencontré. Veuillez recommencer.');
-                return false;
+        if (!empty($formTokenValue) && isset($formTokenValue)) {
+            if(hash_equals($_SESSION['token'], $formTokenValue)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }
 

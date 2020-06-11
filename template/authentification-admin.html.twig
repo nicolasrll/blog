@@ -13,7 +13,7 @@
                         <p class="text-danger">{{ flashbag }}</p>
                     {% endif %}
                 </header>
-                <form id="" class="row justify-content-center" action="/authentification" method="post">
+                <form class="row justify-content-center" action="/authentification" method="post">
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
                             <label for="login">Login</label>
@@ -23,7 +23,7 @@
                             <label for="password">Mot de passe</label>
                             <input class="form-control" type="password" id="password" name="authentification[password]" required>
                         </div>
-                        <input type="hidden" name="authentification[adminLoginToken]" value="{{ session.token }}">
+                        <input type="hidden" name="authentification[tokenLoginAdmin]" value="{{ session.token }}">
                         <input type="submit" class="btn btn-primary" value="Connexion"><br>
                 </form>
         </section>

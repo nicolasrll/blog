@@ -10,7 +10,7 @@ use App\Entity\User;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
-    public function indexAction(): ?self
+    public function indexAction(): void
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
@@ -23,7 +23,7 @@ class AuthentificationController extends DefaultControllerAbstract
                         'flashbag' => $flashbag
                     ]
                 );
-                return $this;
+                return;
             }
 
             $_SESSION['isLogged'] = true;
@@ -36,16 +36,11 @@ class AuthentificationController extends DefaultControllerAbstract
         $this->renderView(
             'authentification-admin.html.twig'
         );
-        return $this;
     }
 
     public function checkPassword(string $passwordForm, string $password): bool
     {
-        if (!password_verify($passwordForm, $password)) {
-            return false;
-        }
-
-        return true;
+        return password_verify($passwordForm, $password);
     }
 
     public function logoutAction(): void
@@ -58,9 +53,9 @@ class AuthentificationController extends DefaultControllerAbstract
 
     public function checkValuesSubmited(array $formValues): string
     {
-        $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
+        $message = $this->checkTokenCSRF($formValues['tokenLoginAdmin']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
-        if ($this->checkTokenCSRF($formValues['adminLoginToken'])) {
+        if ($this->checkTokenCSRF($formValues['tokenLoginAdmin'])) {
             $user = (new UserManager())->findOne(['login' => $formValues['login']]);
 
             if (
