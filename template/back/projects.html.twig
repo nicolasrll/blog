@@ -1,18 +1,20 @@
 {% extends "back/template.html.twig" %}
-{% block title %}Liste des projets - Site web personnel de Nicolas{% endblock %}
+{% block title %}Liste des projets - {{ commonTitle }}{% endblock %}
 {% block content %}
-    <section class="container text-center" >
-        <header class="mb-4">
-            <h1>Liste des projets ({{ projects|length }})</h1>
-            <p class="{{ classValue }}">{{ flashbag }}</p>
-        </header>
-        <div class="row projects">
-            {% for project in projects %}
-                    <a class="col-8 mb-4" href="/admin/project/see?id={{ project.id }}">{{ project.title }}</a>
-                <p class="col-4">
-                    {{ project.dateUpdated|date("d/m/Y H:i:s") }}
-                </p>
-            {% endfor %}
-        </div>
-    </section
+    <main>
+        <section class="container text-center" >
+            <header class="mb-4">
+                <h1>Liste des projets ({{ projects|length }})</h1>
+                <p class="{{ classValue }}">{{ flashbag }}</p>
+            </header>
+            <div class="row projects">
+                {% for project in projects %}
+                        <a class="col-8 mb-4" href="/admin/project/see?id={{ project.id }}">{{ project.title }}</a>
+                    <p class="col-4">
+                        {{ project.dateUpdated|date("d/m/Y H:i:s") }}
+                    </p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 {% endblock %}

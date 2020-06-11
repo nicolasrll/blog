@@ -10,9 +10,9 @@ use App\Entity\User;
 
 class HomeController extends DefaultControllerAbstract
 {
-    public function indexAction(): DefaultControllerAbstract
+    public function indexAction(): void
     {
-        return $this->renderView(
+        $this->renderView(
             'home.html.twig'
         );
     }

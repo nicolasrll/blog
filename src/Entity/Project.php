@@ -14,6 +14,7 @@ class Project extends AbstractEntity
     protected string $author = '';
     protected string $dateUpdated = '';
     protected string $linkToProject = '';
+    protected string $linkToPicture = '';
 
 
     public function getUserId(): int
@@ -96,6 +97,18 @@ class Project extends AbstractEntity
     public function setLinkToProject(string $linkToProject)
     {
         $this->linkToProject = $linkToProject;
+
+        return $this;
+    }
+
+    public function getlinkToPicture(): string
+    {
+        return $this->linkToPicture;
+    }
+
+    public function setlinkToPicture(string $linkToPicture)
+    {
+        $this->linkToPicture = $linkToPicture;
 
         return $this;
     }

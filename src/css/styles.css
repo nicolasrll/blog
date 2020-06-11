@@ -1,26 +1,7 @@
-@charset "UTF-8";
-/*!
-* Start Bootstrap - Agency v6.0.0 (https://startbootstrap.com/template-overviews/agency)
-* Copyright 2013-2020 Start Bootstrap
-* Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap v4.4.1 (https://getbootstrap.com/)
- * Copyright 2011-2019 The Bootstrap Authors
- * Copyright 2011-2019 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-
-
 body {
     min-height: 100%;
     color: #222;
     background-color: #fff;
-}
-
-#header-admin-login {
-    background-color: #212529;
-    color: #b8a584;
 }
 
 .btn-primary:hover, #mainNav .navbar-toggler:hover {
@@ -89,7 +70,13 @@ section {
 #mainNav {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background-color: #222;
+}
+
+body > header, #mainNav {
+    background-color: #222
+}
+body > header > h1 {
+    color: #b8a584;
 }
 
 #mainNav .navbar-toggler, .btn-primary {
@@ -118,7 +105,7 @@ header.masthead {
     padding-bottom: 6rem;
     text-align: center;
     color: #fff;
-    background-image: url("/public/assets/img/minp5bg.jpg");
+    background-image: url("/public/img/minp5bg.jpg");
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;

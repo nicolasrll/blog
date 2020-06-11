@@ -1,20 +1,25 @@
 {% extends "back/template.html.twig" %}
-{% block title %}{{ project.title }} - Site web personnel de Nicolas{% endblock %}
+{% block title %}{{ project.title }} - {{ commonTitle }}{% endblock %}
 {% block content %}
-    <section class="container text-center">
-        <article class="row justify-content-center">
-            <header class="col-12 mb-3">
-                <h1>{{ project.title }}</h1>
-                <p class="{{ classValue }}">{{ flashbag }}</p>
-            </header>
-            <a class="btn btn-primary btn-block col-3 mx-auto mx-sm-5 mb-3" href="/admin/project/edit?id={{ project.id }}" role="button">Modifier</a>
-            <a class="btn btn-danger btn-block col-3 mx-auto mx-sm-5 mb-3" href="/admin/project/delete?id={{ project.id }}" role="button">Supprimer</a>
-            <p class="col-sm-4">{{ project.author }}</p>
-            <p class=" col-sm-4">{{ project.dateUpdated }}</p>
-            <p class="col-sm-4"><a href="{{ project.linkToProject
-            }}">Github</a></p>
-            <p class="col-11 col-sm-10 my-4">{{ project.chapo }}</p>
-            <p class="col-11 col-sm-10">{{ project.content }}</p>
-        </article>
-    </section>
+    <main>
+        <section class="container text-center">
+            <article class="row justify-content-center">
+                <header class="col-12 mb-4">
+                    <h1>{{ project.title }}</h1>
+                    {% if flashbag is not empty %}
+                        <p class="{{ classValue }}">{{ flashbag }}</p>
+                    {% endif %}
+                </header>
+                <a class="btn btn-primary btn-block col-3 mx-auto mx-sm-5 mb-3" href="/admin/project/edit?id={{ project.id }}" role="button">Modifier</a>
+                <a class="btn btn-danger btn-block col-3 mx-auto mx-sm-5 mb-3" href="/admin/project/delete?id={{ project.id }}" role="button">Supprimer</a>
+                <p class="col-sm-4">{{ project.author }}</p>
+                <p class=" col-sm-4">{{ project.dateUpdated }}</p>
+                <p class="col-sm-4"><a href="{{ project.linkToProject
+                }}">Github</a></p>
+                <img src="{{ project.linkToPicture }}" alt="illustration du projet">
+                <p class="col-11 col-sm-10 my-4">{{ project.chapo }}</p>
+                <p class="col-11 col-sm-10">{{ project.content }}</p>
+            </article>
+        </section>
+    </main>
 {% endblock %}
