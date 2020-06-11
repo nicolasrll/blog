@@ -38,8 +38,8 @@ class Dispatcher
     {
     	$this->router = new Router();
         $basePath = $this->router->isAdmin()
-            ? 'src/Controllers/Admin/'
-            : 'src/Controllers/';
+            ? 'src/Controller/Admin/'
+            : 'src/Controller/';
         $this->controllerPath = $basePath . ucfirst($this->router->getControllerName()) . '.php';
 
         return $this;
@@ -65,10 +65,11 @@ class Dispatcher
         return $this->controller;
     }
 
-    public function setController(string $controller)
+    public function setController(string $controllerName)
     {
-        $controller = 'App\Controllers\\'.$controller;
-        $this->controller = new $controller;
+        $controllerFolderPath =$this->router->isAdmin() ? 'App\Controller\Admin\\' : 'App\Controller\\';
+        $controller = $controllerFolderPath . $controllerName;
+        $this->controller = new $controller();
     }
 
     /**
@@ -80,8 +81,6 @@ class Dispatcher
         {
             throw new Exception('Le controller recherché n\'existe pas');
         }
-
-        require_once($this->getControllerPath());
 
         $this->setController($this->getRouter()->getControllerName());
 

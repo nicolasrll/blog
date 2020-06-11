@@ -4,6 +4,8 @@ namespace Core;
 
 abstract class AbstractEntity
 {
+    private int $id;
+
     public function hydrate(array $data): AbstractEntity
     {
         foreach ($data as $property => $value) {
@@ -21,9 +23,11 @@ abstract class AbstractEntity
         return $this->id;
     }
 
-    public function setId(int $id)
+    public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function convertToArray(): array

@@ -17,6 +17,8 @@ abstract class DefaultControllerAbstract
         $loader = new FilesystemLoader('template/');
         $twig = new Environment($loader);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
+        // share php session variable
+        $twig->addGlobal('session', $_SESSION);
 
         echo $twig->render($view, $params);
     }
