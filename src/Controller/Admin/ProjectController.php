@@ -174,17 +174,13 @@ class ProjectController extends AdminControllerAbstract
 
     public function checkProjectExistence(): Project
     {
-        $projectId = $this->getParamAsInt('id');
+        $projectId = $project->getId();
 
         if (null == $projectId) {
             throw new Exception('Une erreur est survenue.');
         }
 
         $project = (new ProjectManager())->findOneById($projectId);
-
-        if (!$project) {
-            throw new Exception('Le project que vous souhaitez mettre à jour n\'est plus disponible');
-        }
 
         return $project;
     }
@@ -193,7 +189,6 @@ class ProjectController extends AdminControllerAbstract
     {
         $entity = $project->hydrate($formValues);
         $projectEdited = (new ProjectManager())->update($entity);
-
         if (!$projectEdited) {
             $this->renderView(
                 'back/project_edit.html.twig',
