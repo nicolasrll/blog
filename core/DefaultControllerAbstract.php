@@ -49,11 +49,7 @@ abstract class DefaultControllerAbstract
     public function isSubmited(string $arg): bool
     {
         // Check if we passed another thing than an array
-        if($this->getFormValues($arg) == [null]) {
-            return false;
-        }
-
-        return true;
+        return $this->getFormValues($arg) == [null] ? false : true;
     }
 }
 

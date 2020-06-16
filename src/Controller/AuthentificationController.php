@@ -14,25 +14,28 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
+            $login = empty($formValues['login']) ? null : ($formValues['login']);
+            $password = empty($formValues['password']) ? null : $formValues['password'];
 
-            if (!$this->checkValuesSubmited($formValues)) {
-                $this->renderView(
-                    'authentification-admin.html.twig',
-                    [
-                        'flashbag' => 'Echec dans la tentative de connexion. Veuillez réeessayer'
-                    ]
-                );
-                return;
+            if (
+                null !== $login
+                && null !== $password
+                && $this->accountIsExisting($login, $password)
+            ) {
+                $_SESSION['isLogged'] = true;
+                $_SESSION['login'] = (new UserManager())->findOne(['login' => $formValues['login']])->getLogin();
+                header('Location: /admin');
+                exit;
             }
 
-            $_SESSION['isLogged'] = true;
-            $_SESSION['login'] = (new UserManager())->findOne(['login' => $formValues['login']])->getLogin();
-            header('Location: /admin/home');
-            exit;
+            $errorMessage = 'Echec dans la tentative de connexion. Veuillez réeessayer';
         }
 
         $this->renderView(
-            'authentification-admin.html.twig'
+            'authentification-admin.html.twig',
+            [
+                'flashMessage' => $errorMessage ?? ''
+            ]
         );
     }
 
@@ -49,17 +52,10 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    public function checkValuesSubmited(array $formValues): bool
+    public function accountIsExisting(string $login, string $password): bool
     {
-        $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+        $user = (new UserManager())->findOne(['login' => $login]);
 
-        if (
-            empty($user)
-            || !$this->checkPassword($formValues['password'], $user->getPassword())
-        ) {
-            return false;
-        }
-
-        return true;
+        return null !== $user && $this->checkPassword($password, $user->getPassword());
     }
 }

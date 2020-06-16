@@ -9,8 +9,8 @@
         <section class="container">
                 <header class="text-center">
                     <h2>Connexion</h2>
-                    {% if flashbag is not empty %}
-                        <p class="text-danger">{{ flashbag }}</p>
+                    {% if flashMessage is not empty %}
+                        <p class="text-danger">{{ flashMessage }}</p>
                     {% endif %}
                 </header>
                 <form id="" class="row justify-content-center" action="/authentification/" method="post">

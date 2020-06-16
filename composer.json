@@ -20,7 +20,8 @@
             "cp -R vendor/twbs/bootstrap/dist public/bootstrap",
             "cp -R src/css public",
             "cp -R src/js public",
-            "cp -R src/img public"
+            "cp -R src/img public",
+            "cp config/conf.php.dist config/conf.php"
         ]
     }
 }
