@@ -14,12 +14,13 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
+            $flashbag = $this->checkValuesSubmited($formValues);
 
-            if (!$this->checkValuesSubmited($formValues)) {
+            if (!empty($flashbag)) {
                 $this->renderView(
                     'authentification-admin.html.twig',
                     [
-                        'flashbag' => 'Echec dans la tentative de connexion. Veuillez réeessayer'
+                        'flashbag' => $flashbag
                     ]
                 );
                 return;
@@ -31,6 +32,7 @@ class AuthentificationController extends DefaultControllerAbstract
             exit;
         }
 
+        $this->generateTokenCSRF();
         $this->renderView(
             'authentification-admin.html.twig'
         );
@@ -49,17 +51,21 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    public function checkValuesSubmited(array $formValues): bool
+    public function checkValuesSubmited(array $formValues): string
     {
-        $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+        $message = $this->checkTokenCSRF($formValues['tokenLoginAdmin']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
-        if (
-            empty($user)
-            || !$this->checkPassword($formValues['password'], $user->getPassword())
-        ) {
-            return false;
+        if ($this->checkTokenCSRF($formValues['tokenLoginAdmin'])) {
+            $user = (new UserManager())->findOne(['login' => $formValues['login']]);
+
+            if (
+                empty($user)
+                || !$this->checkPassword($formValues['password'], $user->getPassword())
+            ) {
+                $message = 'Echec dans la tentative de connexion. Veuillez réeessayer';
+            }
         }
 
-        return true;
+        return $message;
     }
 }

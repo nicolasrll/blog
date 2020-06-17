@@ -55,5 +55,22 @@ abstract class DefaultControllerAbstract
 
         return true;
     }
+
+    public function generateTokenCSRF(): void
+    {
+        // Generates a token for each interaction with the form
+        $_SESSION['token'] = bin2hex(random_bytes(32));
+    }
+
+    public function checkTokenCSRF($formTokenValue): bool
+    {
+        if (!empty($formTokenValue) && isset($formTokenValue)) {
+            if(hash_equals($_SESSION['token'], $formTokenValue)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 

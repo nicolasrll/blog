@@ -1,5 +1,94 @@
+{% extends "template.html.twig" %}
 {% block content %}
-<main>
-    <h1>Accueil de mon site</h1>
-<main>
+    <main class="container">
+        <section class="row text-center">
+            <!-- Redondant avec title dans header
+            <h1 id="toto">Nicolas Rellier</h1>
+            <h2>Développeur PHP Symfony</h2>
+            -->
+
+            <article class="row justify-content-center mb-5">
+                <div class="col-12 col-sm-6">
+                    <img class="img-fluid" id="profil" class="rounded mx-auto d-block" src="/public/img/photoblog.jpg" alt="photo présentant nicolas rellier">
+                </div>
+                <div class="col-10 col-sm-6 text-align-center my-auto">
+                    Après un début de carrière dans les télécoms & réseaux, j'ai choisis de me reconvertir dans le développement web. Ce qui m'attire dans le développement c'est de répondre à une problématique et créer du code modélisant les choses de la vie courante. Vous pouvez télécharger mon CV <a href="/public/assets/img/cv_nicolas_rellier.pdf">ici</a><br>
+                </div>
+            </article>
+            <article class="row justify-content-center">
+                <h2 class="col-12">Portfolio</h2>
+                {% for project in projects %}
+                    <div class="projects col-10 col-sm-6 col-lg-4">
+                        <img class="preview-img" src="{{ project.linkToPicture }}" alt="illustration du projet">
+                        <h3>{{ project.title }}</h3>
+                        <p>Modifié le {{ project.dateUpdated }}</p>
+                        <p>{{ project.chapo }}</p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ project.id }}" href="#">Voir plus</button>
+                    </div>
+                {% endfor %}
+            </article>
+        </section>
+            <!--
+            titre
+            chapo
+            contenu
+            auteur
+            date de dernière modif
+            formulaire pour ajout commentaire
+            liste des commentaires
+            -->
+            {% for project in projects %}
+             <div class="modal fade" id="{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content container">
+                                <div class="modal-header text-center row justify-content-center">
+                                    <h3 class="modal-title col-12" id="exampleModalLabel">{{ project.title }}</h3>
+                                    <p class="col-6">Modifié le {{ project.dateUpdated }}</p>
+                                    <p class="col-6">{{ project.author }}</p>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body row justify-content-center">
+                                    <img class="col-6"src="public/assets/img/portfolio/p1.png" alt="image du projet 1">
+                                    <p class="col-10">{{ project.chapo }}</p>
+                                    <p class="col-10">{{ project.content}}
+                                    </p>
+                                    <h4 class="col-12 text-center">Commentaires</h4>
+                                    <!-- Commentaire simulé 1-->
+                                    <div class="col-12">
+                                        <p>Posté par Dupont <span>le 15/05/2020</span></p>
+                                        <p>Un bon démarage</p>
+                                    </div>
+                                    <!-- Commentaire simulé 2-->
+                                    <div class="col-12">
+                                        <p>
+                                        Posté par Azerty<span>le 17/0
+                                        5/2020</span>
+                                        </p>
+                                        <p>Intéressant</p>
+                                    </div>
+                                    <!-- Commentaire simulé 3-->
+                                    <div class="col-12">
+                                        <p>Posté par Qwerty<span>le 19/05/2020</span></p>
+                                        <p>Enrichissant</p>
+                                    </div>
+                                    <h4 class="col-12 text-center">Commenter</h4>
+                                    <form method="post" action="" class="col-12">
+                                        <!-- doit être connecté donc pseudo rempli dynamiquement-->
+                                        <div class="form-group">
+                                            <label for="comment">Commentaire</label>
+                                            <textarea id="comment" class="form-control" name="comment" required></textarea>
+                                        </div>
+                                        <input type="submit" value="Commenter">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+    </main>
 {% endblock %}

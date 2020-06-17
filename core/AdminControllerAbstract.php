@@ -11,7 +11,7 @@ abstract class AdminControllerAbstract extends DefaultControllerAbstract
 {
     public function __construct()
     {
-        if (false === $this->isLogged()) {
+        if (false === $this->isLogged() || !isset($_SESSION['login'])) {
             header('Location: /authentification');
             exit;
         }
@@ -20,7 +20,7 @@ abstract class AdminControllerAbstract extends DefaultControllerAbstract
             ->findOne(['login' => $_SESSION['login']])
             ->getRole();
 
-        if (!$this->roleCheck($userRole)) {
+        if (!$this->checkRole($userRole)) {
             throw new Exception('Accès refusé.');
         }
     }
@@ -31,7 +31,7 @@ abstract class AdminControllerAbstract extends DefaultControllerAbstract
             && true === $_SESSION['isLogged'];
     }
 
-    public function roleCheck(string $role): bool
+    public function checkRole(string $role): bool
     {
         if ($role !== 'admin') {
             return false;

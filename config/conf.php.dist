@@ -5,3 +5,4 @@
     define('DBNAME', 'blog');
     define('DBUSER', 'root');
     define('DBPASSWORD', '');
+
