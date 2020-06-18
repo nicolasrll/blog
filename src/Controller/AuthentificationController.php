@@ -7,25 +7,30 @@ use Core\Request;
 use Exception;
 use App\Repository\UserManager;
 use App\Entity\User;
+use invalidArgumentException;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
     public function indexAction(): void
     {
         if ($this->isSubmited('authentification')) {
-            $formValues = $this->getFormValues('authentification');
-            $login = empty($formValues['login']) ? null : ($formValues['login']);
-            $password = empty($formValues['password']) ? null : $formValues['password'];
+            $formValues = $this->getFormValues('toto');
+
+
+            // If we looking another form name than authentification
+            if (empty($formValues)) {
+                throw new Exception('Le formulaires récupéré est incorrect.');
+            }
+
+            $login = $formValues['login'] ?? null;
+            $password = $formValues['password'] ?? null;
 
             if (
-                null !== $login
-                && null !== $password
+                $this->formIsValid($formValues)
                 && $this->accountIsExisting($login, $password)
             ) {
-                $_SESSION['isLogged'] = true;
-                $_SESSION['login'] = (new UserManager())->findOne(['login' => $formValues['login']])->getLogin();
-                header('Location: /admin');
-                exit;
+                $this->addUserInSession((new UserManager())->findOne(['login' => $formValues['login']])->getLogin());
+                $this->redirectTo('/admin');
             }
 
             $errorMessage = 'Echec dans la tentative de connexion. Veuillez réeessayer';
@@ -39,7 +44,7 @@ class AuthentificationController extends DefaultControllerAbstract
         );
     }
 
-    public function checkPassword(string $passwordForm, string $password): bool
+    private function checkPassword(string $passwordForm, string $password): bool
     {
         return password_verify($passwordForm, $password);
     }
@@ -52,10 +57,24 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    public function accountIsExisting(string $login, string $password): bool
+    private function accountIsExisting(?string $login, ?string $password): bool
     {
-        $user = (new UserManager())->findOne(['login' => $login]);
+        if (empty($login) || empty($password)) {
+            return false;
+        }
 
+        $user = (new UserManager())->findOne(['login' => $login]);
         return null !== $user && $this->checkPassword($password, $user->getPassword());
+    }
+
+    private function addUserInSession($userLogin)
+    {
+        $_SESSION['isLogged'] = true;
+        $_SESSION['login'] = $userLogin;
+    }
+
+    private function redirectTo($destination) {
+        header('Location: ' . $destination);
+        exit;
     }
 }
