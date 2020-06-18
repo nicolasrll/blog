@@ -43,13 +43,29 @@ abstract class DefaultControllerAbstract
     {
         $searchValue = (Request::getInstance())->getParam($searching);
 
-        return is_array($searchValue) ? $searchValue : [$searchValue];
+        return is_array($searchValue)
+            ? $searchValue
+            :(
+                null !== $searchValue
+                    ? [$searching => $searchValue]
+                    : []
+            );
     }
 
     public function isSubmited(string $arg): bool
     {
         // Check if we passed another thing than an array
         return $this->getFormValues($arg) == [null] ? false : true;
+    }
+
+    protected function formIsValid( $formValues): bool
+    {
+        $isValid = !is_array($formValues)
+        || empty($formValues)
+        ? false
+        : true;
+
+        return $isValid;
     }
 }
 
