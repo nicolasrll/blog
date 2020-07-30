@@ -55,17 +55,14 @@ abstract class DefaultControllerAbstract
     public function isSubmited(string $arg): bool
     {
         // Check if we passed another thing than an array
-        return $this->getFormValues($arg) == [null] ? false : true;
+        return $this->getFormValues($arg) !== [];
     }
 
-    protected function formIsValid( $formValues): bool
+    /*
+    protected function formIsValid(array $formValues): bool
     {
-        $isValid = !is_array($formValues)
-        || empty($formValues)
-        ? false
-        : true;
-
-        return $isValid;
+        return is_array($formValues) || !empty($formValues);
     }
+    */
 }
 
