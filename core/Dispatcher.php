@@ -36,13 +36,11 @@ class Dispatcher
 
     public function __construct()
     {
-    	$this->router = new Router();
+        $this->router = new Router();
         $basePath = $this->router->isAdmin()
             ? 'src/Controller/Admin/'
             : 'src/Controller/';
         $this->controllerPath = $basePath . ucfirst($this->router->getControllerName()) . '.php';
-
-        return $this;
     }
 
     public function getRouter(): Router

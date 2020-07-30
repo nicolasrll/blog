@@ -7,29 +7,20 @@ use Core\Request;
 use Exception;
 use App\Repository\UserManager;
 use App\Entity\User;
-use invalidArgumentException;
 
 class AuthentificationController extends DefaultControllerAbstract
 {
     public function indexAction(): void
     {
         if ($this->isSubmited('authentification')) {
-            $formValues = $this->getFormValues('toto');
+            $formValues = $this->getFormValues('authentification');
 
-
-            // If we looking another form name than authentification
-            if (empty($formValues)) {
-                throw new Exception('Le formulaires récupéré est incorrect.');
-            }
-
-            $login = $formValues['login'] ?? null;
+            $login = $formValues['login'] ? (new UserManager())->findOne(['login' => $formValues['login']]) : null;
+            //$login = $formValues['login'] ?? null;
             $password = $formValues['password'] ?? null;
 
-            if (
-                $this->formIsValid($formValues)
-                && $this->accountIsExisting($login, $password)
-            ) {
-                $this->addUserInSession((new UserManager())->findOne(['login' => $formValues['login']])->getLogin());
+            if ($this->accountIsExisting($login, $password)) {
+                $this->addUserInSession($login);
                 $this->redirectTo('/admin');
             }
 
@@ -57,23 +48,25 @@ class AuthentificationController extends DefaultControllerAbstract
         exit;
     }
 
-    private function accountIsExisting(?string $login, ?string $password): bool
+    private function accountIsExisting(?User $login, ?string $password): bool
     {
         if (empty($login) || empty($password)) {
             return false;
         }
 
-        $user = (new UserManager())->findOne(['login' => $login]);
-        return null !== $user && $this->checkPassword($password, $user->getPassword());
+        return $this->checkPassword($password, $login->getPassword());
+        //$user = (new UserManager())->findOne(['login' => $login]);
+        //return null !== $user && $this->checkPassword($password, $user->getPassword());
     }
 
-    private function addUserInSession($userLogin)
+    private function addUserInSession($userLogin): void
     {
         $_SESSION['isLogged'] = true;
-        $_SESSION['login'] = $userLogin;
+        $_SESSION['login'] = $userLogin->getLogin();
     }
 
-    private function redirectTo($destination) {
+    private function redirectTo($destination): void
+    {
         header('Location: ' . $destination);
         exit;
     }
