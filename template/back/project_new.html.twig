@@ -4,8 +4,8 @@
     <section class="container">
         <header class="text-center">
             <h1>Créer un projet</h1>
-            {% if flashbag is not empty %}
-                <p class="{{ classValue }}">{{ flashbag }}</p>
+            {% if flashMessage is not empty %}
+                <p class="{{ classValue }}">{{ flashMessage }}</p>
             {% endif %}
         </header>
         {{ include ('back/_project_form.html.twig', {'action' : 'new', 'author' : 'Nicolas', 'linkToProject' : 'https://github.com/nicolasrll', 'classValue' : 'text-danger' }) }}
