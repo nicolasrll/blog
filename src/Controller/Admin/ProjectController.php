@@ -22,11 +22,10 @@ class ProjectController extends AdminControllerAbstract
     public function seeAction(): self
     {
         $projectId = $this->getParamAsInt('id');
-        $project = (new ProjectManager())->findOneById($projectId);
         $this->renderView(
             'back/project.html.twig',
             [
-                'project' => $project,
+                'project' => (new ProjectManager())->findOneById($projectId)
             ]
         );
         return $this;
@@ -106,7 +105,7 @@ class ProjectController extends AdminControllerAbstract
         return false;
     }
 
-    private function checkOnEmptyField($formValues): bool
+    private function checkOnEmptyField(array $formValues): bool
     {
         if (count(array_filter($formValues)) === count($formValues)) {
             return true;
