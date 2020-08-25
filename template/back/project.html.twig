@@ -6,7 +6,9 @@
             <article class="row justify-content-center">
                 <header class="col-12 mb-4">
                     <h1>{{ project.title }}</h1>
-                    <p class="{{ classValue }}">{{ flashMessage }}</p>
+                    {% if flashMessage is not empty %}
+                        <p class="{{ classValue }}">{{ flashMessage }}</p>
+                    {% endif %}
                 </header>
                 <a class="btn btn-primary btn-block" href="/admin/project/edit?id={{ projectId }}" role="button">Modifier</a>
                 <p class="col-sm-4">{{ project.author }}</p>
