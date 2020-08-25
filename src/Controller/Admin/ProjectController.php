@@ -187,6 +187,5 @@ class ProjectController extends AdminControllerAbstract
             ]
         );
         return $this;
->>>>>>> refactor #5 (project views, projectController):
     }
 }
