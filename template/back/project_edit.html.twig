@@ -1,11 +1,11 @@
 {% extends "back/template.html.twig" %}
-{% block title%}Modifier un projet - Site web personnel de Nicolas Rellier{% endblock %}
+{% block title%}Modifier un projet - {{ commonTitle }}{% endblock %}
 {% block content %}
     <section class="container">
         <header class="text-center">
             <h1>Modifier un projet</h1>
-            {% if flashbag is not empty %}
-                <p class="{{ classValue }}">{{ flashbag }}</p>
+            {% if flashMessage is not empty %}
+                <p class="{{ classValue }}">{{ flashMessage }}</p>
             {% endif %}
         </header>
         {{ include ('back/_project_form.html.twig', {'action' : 'edit?id=' ~ projectId, 'tokenName' : 'tokenEditProject'  }) }}

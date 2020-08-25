@@ -5,7 +5,9 @@
         <section class="container text-center" >
             <header class="mb-4">
                 <h1>Liste des projets ({{ projects|length }})</h1>
-                <p class="{{ classValue }}">{{ flashbag }}</p>
+                {% if flashMessage is not empty %}
+                    <p class="{{ classValue }}">{{ flashMessage }}</p>
+                {% endif %}
             </header>
             <div class="row projects">
                 {% for project in projects %}
