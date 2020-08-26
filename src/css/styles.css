@@ -4,7 +4,7 @@ body {
     background-color: #fff;
 }
 
-.btn-primary:hover, #mainNav .navbar-toggler:hover {
+.btn-primary:hover, .btn-danger:hover, #mainNav .navbar-toggler:hover {
     color: #fff;
     background-color: #fec810;
     border-color: #fec810 ;
@@ -80,11 +80,14 @@ body > header > h1 {
 }
 
 #mainNav .navbar-toggler, .btn-primary {
-    padding: 0.75rem;
-    font-size: 0.75rem;
-    text-transform: uppercase;
     background-color: #b8a584;
     border-color: #b8a584;
+}
+
+#mainNav .navbar-toggler, .btn-primary, .btn-danger {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    /*text-transform: uppercase;*/
 }
 
 #mainNav .navbar-brand img {

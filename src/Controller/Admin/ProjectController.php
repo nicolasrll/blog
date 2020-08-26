@@ -23,7 +23,6 @@ class ProjectController extends AdminControllerAbstract
     public function seeAction(): void
     {
         $projectId = $this->getParamAsInt('id');
-        $project = $projectManager->findOneById($projectId);
         $this->renderView(
             'back/project.html.twig',
             [
@@ -88,6 +87,22 @@ class ProjectController extends AdminControllerAbstract
                     $formValues
                 );
             }
+        }
+    }
+
+    public function deleteAction(): void
+    {
+        $projectId = $this->getParamAsInt('id');
+        $project = $this->checkProjectExistence($projectId);
+
+        if(isset($project)) {
+            $projectDeleted = (new ProjectManager())->delete($projectId);
+            $this->renderViewOnActionInDatabase(
+                    $projectDeleted,
+                    'Votre projet a été supprimé avec succès',
+                    'Votre projet n\'a pas pu être supprimé.',
+                    'back/projects.html.twig'
+            );
         }
     }
 
@@ -187,23 +202,5 @@ class ProjectController extends AdminControllerAbstract
             ]
         );
         return $this;
-    }
-
-    public function deleteAction()
-    {
-        $id = $this->getParamAsInt('id');
-        $projectManager = new ProjectManager();
-        $projectDeleted = $projectManager->delete($id);
-
-        $projects = $projectManager->find();
-        $this->renderView(
-            'back/projects.html.twig',
-            [
-                'projects' => $projects,
-                'flashbag' => 'Votre project a été supprimé avec succès',
-                'classValue' => 'text-success'
-            ]
-        );
-        return;
     }
 }
