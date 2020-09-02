@@ -21,6 +21,7 @@
             "cp -R src/css public",
             "cp -R src/js public",
             "cp -R src/img public",
+            "cp -R src/documents public",
             "cp config/conf.php.dist config/conf.php"
         ]
     }

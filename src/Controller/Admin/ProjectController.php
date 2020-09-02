@@ -23,10 +23,14 @@ class ProjectController extends AdminControllerAbstract
     public function seeAction(): void
     {
         $projectId = $this->getParamAsInt('id');
+        $projectFind = (new ProjectManager)->findOneById($projectId);
+        $formattedEntity = $this->formatTheEntity($projectFind, ['chapo', 'content']);
+
+        $project = (new Project())->hydrate($formattedEntity)->setId($projectId);
         $this->renderView(
             'back/project.html.twig',
             [
-                'project' => (new ProjectManager())->findOneById($projectId),
+                'project' => $project,
                 'projectId' => $projectId
             ]
         );

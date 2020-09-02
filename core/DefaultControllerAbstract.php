@@ -76,5 +76,17 @@ abstract class DefaultControllerAbstract
     {
         return !empty($formTokenValue) && hash_equals($_SESSION['token'], $formTokenValue);
     }
+
+    protected function formatTheEntity(AbstractEntity $entity, array $propertiesEntity = []): array
+    {
+        $entityAsArray = $entity->convertToArray();
+        foreach ($propertiesEntity as $value) {
+            if(in_array($value, array_keys($entityAsArray))) {
+                $entityAsArray[$value] = nl2br(htmlspecialchars($entityAsArray[$value]));
+            }
+        }
+
+        return $entityAsArray;
+    }
 }
 
