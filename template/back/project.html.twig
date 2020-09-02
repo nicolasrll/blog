@@ -17,9 +17,11 @@
                 <p class=" col-sm-4">{{ project.dateUpdated }}</p>
                 <p class="col-sm-4"><a href="{{ project.linkToProject
                 }}">Github</a></p>
-                <img src="{{ project.linkToPicture }}" alt="illustration du projet">
-                <p class="col-11 col-sm-10 my-4">{{ project.chapo }}</p>
-                <p class="col-11 col-sm-10">{{ project.content }}</p>
+                <img class="col-11 col-sm-6" src="{{ project.linkToPicture }}" alt="illustration du projet">
+                <div class="text-justify">
+                    <p class="col-11 col-sm-12 my-4 mx-auto">{{ project.chapo|raw }}</p>
+                    <p class="col-11 col-sm-12 mx-auto">{{ project.content|raw}}</p>
+                </div>
             </article>
         </section>
     </main>

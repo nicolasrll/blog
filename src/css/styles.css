@@ -115,13 +115,13 @@ header.masthead {
     background-size: cover;
 }
 
-header.masthead .masthead-subheading {
+header.masthead .masthead-subheading, header.masthead .masthead-subheading h2 {
     font-size: 1.5rem;
     font-style: italic;
     line-height: 1.5rem;
     margin-bottom: 25px;
 }
-header.masthead .masthead-heading {
+header.masthead .masthead-heading, header.masthead .masthead-heading h1 {
     font-size: 3.25rem;
     font-weight: 700;
     line-height: 3.25rem;
@@ -166,13 +166,13 @@ header.masthead .masthead-heading {
         padding-top: 17rem;
         padding-bottom: 12.5rem;
   }
-    header.masthead .masthead-subheading {
+    header.masthead .masthead-subheading, header.masthead .masthead-subheading h2 {
         font-size: 2.25rem;
         font-style: italic;
         line-height: 2.25rem;
         margin-bottom: 2rem;
   }
-    header.masthead .masthead-heading {
+    header.masthead .masthead-heading, header.masthead .masthead-heading h1 {
         font-size: 4.5rem;
         font-weight: 700;
         line-height: 4.5rem;
@@ -196,4 +196,12 @@ header.masthead .masthead-heading {
 
 .projects a {
     color: blue;
+}
+
+#profil {
+    height: 25em;
+}
+
+.img-thumbnail {
+    height: 15em;
 }
