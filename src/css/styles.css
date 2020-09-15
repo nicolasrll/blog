@@ -4,6 +4,11 @@ body {
     background-color: #fff;
 }
 
+.dropdown-item:active {
+    background-color: #222;
+    color: #b8a584;
+}
+
 .btn:hover, .btn-danger:hover, .mainNav .navbar-toggler:hover {
     color: #fff;
     background-color: #fec810;
@@ -148,7 +153,7 @@ header.masthead .masthead-heading, header.masthead .masthead-heading h1 {
     height: 5rem;
     transition: height 0.3s ease-in-out;
   }
-  .mainNav {
+  .mainNav.navbar-shrink {
     padding-top: 1rem;
     padding-bottom: 1rem;
     background-color: #222;
