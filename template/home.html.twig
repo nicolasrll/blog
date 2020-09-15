@@ -1,29 +1,28 @@
 {% extends "template.html.twig" %}
 {% block content %}
     <main class="container">
-        <section class="row text-center">
+        <section class="text-center">
             <article id="about" class="row justify-content-center mb-5">
                 <div class="col-12 col-sm-6">
-                    <img id="profil" class="rounded mx-auto d-block" src="/public/img/photoblog.jpg" alt="photo présentant nicolas rellier">
+                    <img id="profil" class="rounded mx-auto" src="/public/img/photoblog.jpg" alt="photo présentant nicolas rellier">
                 </div>
                 <div class="col-10 col-sm-6 text-align-center my-auto">
                     Après un début de carrière en tant que technicien télécom & réseaux, j'ai choisis de me reconvertir dans le développement web. Ce qui me passionne dans le développement, c'est de créer du code modélisant les choses de la vie courante tout en répondant à une problématique. Mon CV est disponible <a href="/public/documents/cv_nicolas_rellier.zip">ici</a><br>
                 </div>
             </article>
-            <article id="projects" class="row justify-content-center">
+            <article id="portfolio" class="row justify-content-center mt-5">
                 <h2 class="col-12">Portfolio</h2>
                 {% for project in projects %}
                     <div class="projects col-10 col-sm-6 col-lg-4 mt-4">
                         <img class="img-thumbnail" src="{{ project.linkToPicture }}" alt="illustration du projet">
                         <h3>{{ project.title }}</h3>
-                        <p>Modifié le {{ project.dateUpdated }}</p>
+                        <p>Modifié le {{ project.dateUpdated|date("d/m/Y") }}</p>
                         <p>{{ project.chapo }}</p>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project{{ project.id }}">Voir plus</button>
                     </div>
                 {% endfor %}
             </article>
         </section>
-
         {% for project in projects %}
             <div class="modal fade" id="project{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="#project{{ project.id }}Title" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
@@ -42,7 +41,7 @@
                             <p class="col-10">{{ project.content|raw}}</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>
                 </div>
