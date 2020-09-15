@@ -4,7 +4,7 @@ body {
     background-color: #fff;
 }
 
-.btn-primary:hover, .btn-danger:hover, #mainNav .navbar-toggler:hover {
+.btn:hover, .btn-danger:hover, .mainNav .navbar-toggler:hover {
     color: #fff;
     background-color: #fec810;
     border-color: #fec810 ;
@@ -13,6 +13,10 @@ body {
 .btn-primary:focus {
     background-color: #fec810 !important;
     border-color: #fec810 !important;
+}
+
+.btn-primary:focus {
+    box-shadow: none !important;
 }
 
 a {
@@ -67,39 +71,39 @@ section {
     color: #fff;
 }
 
-#mainNav {
+.mainNav {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
-body > header, #mainNav {
+body > header, .mainNav {
     background-color: #222
 }
 body > header > h1 {
     color: #b8a584;
 }
 
-#mainNav .navbar-toggler, .btn-primary {
+.mainNav .navbar-toggler, .btn-primary, .btn-secondary {
     background-color: #b8a584;
     border-color: #b8a584;
 }
 
-#mainNav .navbar-toggler, .btn-primary, .btn-danger {
+.mainNav .navbar-toggler, .btn-primary, .btn-danger {
     padding: 0.75rem;
     font-size: 0.75rem;
     /*text-transform: uppercase;*/
 }
 
-#mainNav .navbar-brand img {
+.mainNav .navbar-brand img {
     height: 3rem;
 }
 
-#mainNav .navbar-nav .nav-item .nav-link {
+.mainNav .navbar-nav .nav-item .nav-link {
     color: #b8a584;
     letter-spacing: 0.0625em;
 }
 
-#mainNav .navbar-nav .nav-item .nav-link:hover {
+.mainNav .navbar-nav .nav-item .nav-link:hover {
     color: #fed136;
 }
 
@@ -129,34 +133,31 @@ header.masthead .masthead-heading, header.masthead .masthead-heading h1 {
 }
 
 @media (min-width: 992px) {
-  #mainNav {
+  .mainNav {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     border: none;
     background-color: transparent;
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
-  #mainNav .navbar-brand {
+  .mainNav .navbar-brand {
     font-size: 1.5em;
     transition: font-size 0.3s ease-in-out;
   }
-  #mainNav .navbar-brand img {
+  .mainNav .navbar-brand img {
     height: 5rem;
     transition: height 0.3s ease-in-out;
   }
-  #mainNav.navbar-shrink {
+  .mainNav {
     padding-top: 1rem;
     padding-bottom: 1rem;
     background-color: #222;
   }
-  #mainNav.navbar-shrink .navbar-brand {
-    font-size: 1.25em;
-  }
 
-  #mainNav .navbar-nav .nav-item {
+  .mainNav .navbar-nav .nav-item {
     margin-right: 1rem;
   }
-  #mainNav .navbar-nav .nav-item:last-child {
+  .mainNav .navbar-nav .nav-item:last-child {
     margin-right: 0;
   }
 }
