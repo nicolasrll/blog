@@ -9,13 +9,8 @@ body {
     color: #b8a584;
 }
 
-.btn:hover, .btn-danger:hover, .mainNav .navbar-toggler:hover {
+.btn:hover, .btn:focus, .btn:active, .mainNav .navbar-toggler:hover {
     color: #fff;
-    background-color: #fec810;
-    border-color: #fec810 ;
-}
-
-.btn-primary:focus {
     background-color: #fec810 !important;
     border-color: #fec810 !important;
 }
