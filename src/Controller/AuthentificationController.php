@@ -14,9 +14,9 @@ class AuthentificationController extends DefaultControllerAbstract
     {
         if ($this->isSubmited('authentification')) {
             $formValues = $this->getFormValues('authentification');
-            $errorMessage = $this->checkTokenCSRF($formValues['adminLoginToken']) ? NULL : 'Une erreur est survenue. Veuillez rafraichir la page.';
+            $errorMessage = $this->tokenCSRFIsValid($formValues['adminLoginToken']) ? NULL : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
-            if ($this->checkTokenCSRF($formValues['adminLoginToken'])) {
+            if ($this->tokenCSRFIsValid($formValues['adminLoginToken'])) {
                 $login = $formValues['login'] ? (new UserManager())->findOne(['login' => $formValues['login']]) : null;
                 $password = $formValues['password'] ?? null;
 
@@ -36,6 +36,7 @@ class AuthentificationController extends DefaultControllerAbstract
                 'flashMessage' => $errorMessage ?? ''
             ]
         );
+
         return $this;
     }
 
@@ -76,9 +77,9 @@ class AuthentificationController extends DefaultControllerAbstract
 
     public function checkValuesSubmited(array $formValues): string
     {
-        $message = $this->checkTokenCSRF($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
+        $message = $this->tokenCSRFIsValid($formValues['adminLoginToken']) ? '' : 'Une erreur est survenue. Veuillez rafraichir la page.';
 
-        if ($this->checkTokenCSRF($formValues['adminLoginToken'])) {
+        if ($this->tokenCSRFIsValid($formValues['adminLoginToken'])) {
             $user = (new UserManager())->findOne(['login' => $formValues['login']]);
 
             if (

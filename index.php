@@ -13,6 +13,7 @@ try {
 
     $dispatcher = new Dispatcher();
     $dispatcher->dispatch();
+    unset($_SESSION['flashMessage']);
 } catch (Exception $e) {
     echo 'Exception reçue : ' . $e->getMessage();
 }
