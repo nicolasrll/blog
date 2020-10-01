@@ -72,9 +72,18 @@ abstract class DefaultControllerAbstract
         return $this;
     }
 
-    public function checkTokenCSRF(string $formTokenValue): bool
+    public function tokenCSRFIsValid(string $formTokenValue): bool
     {
-        return !empty($formTokenValue) && hash_equals($_SESSION['token'], $formTokenValue);
+        if (
+            !empty($formTokenValue)
+            && hash_equals($_SESSION['token'], $formTokenValue)
+        ) {
+            return true;
+        }
+
+        $_SESSION['flashMessage'] = 'Les jetons CSRF ne correspondent pas. Veuillez rafraichir la page';
+
+        return false;
     }
 
     protected function formatTheEntity(AbstractEntity $entity, array $propertiesEntity = []): array
@@ -87,6 +96,17 @@ abstract class DefaultControllerAbstract
         }
 
         return $entityAsArray;
+    }
+
+    public function formFieldsIsNotEmpty(array $formValues): bool
+    {
+        if (count(array_filter($formValues)) === count($formValues)) {
+            return true;
+        }
+
+        $_SESSION['flashMessage'] = 'Veuillez remplir tous les champs.';
+
+        return false;
     }
 }
 

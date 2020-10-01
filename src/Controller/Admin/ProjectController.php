@@ -38,119 +38,87 @@ class ProjectController extends AdminControllerAbstract
 
     public function newAction(): void
     {
+        $projectInserted = 0;
+
         if ($this->isSubmited('project')) {
             $formValues = array_map('trim', $this->getFormValues('project'));
 
-            if ($this->priorVerification($formValues, 'tokenNewProject', 'back/project_new.html.twig')) {
+            if (
+                $this->tokenCSRFIsValid($formValues['tokenNewProject'])
+                && $this->formFieldsIsNotEmpty($formValues)
+            ) {
                 $author = (new UserManager())->findOne(['login' => 'admin-p5']);
                 $project = (new Project())->hydrate($formValues)->setUserId($author->getId())->setDateUpdated(date('Y-m-d H:i:s'));
-                $result = (new ProjectManager())->insert($project);
-                $this->renderViewOnActionInDatabase(
-                    $result,
-                    'Le projet a été créé avec succès.',
-                    'Une erreur est survenue. Le projet n\'a pas été crée',
-                    'back/project_new.html.twig',
-                    $formValues
-                );
+                $projectInserted = (new ProjectManager())->insert($project);
+                $_SESSION['flashMessage'] = $projectInserted ? 'Le projet a été créé avec succès.' : 'Une erreur est survenue. Le projet n\'a pas été crée';
             }
-
-            return;
         }
 
         $this->generateTokenCSRF();
-        $this->renderView('back/project_new.html.twig');
+        $this->renderView(
+            $projectInserted ? 'back/projects.html.twig' : 'back/project_new.html.twig',
+            [
+                'flashMessage' => $_SESSION['flashMessage'] ?? '',
+                'classValue' => $projectInserted ? 'text-success' : 'text-danger',
+                'projects' => (new ProjectManager())->find(),
+                'project' => $formValues ?? '',
+            ]
+        );
     }
 
     public function editAction(): void
     {
         $projectId = $this->getParamAsInt('id');
         $project = $this->checkProjectExistence($projectId);
+        $projectEdited = false;
 
-        if (!$this->isSubmited('project')) {
-            $this->generateTokenCSRF()->renderView(
-                'back/project_edit.html.twig',
-                [
-                    'project' => $project,
-                    'projectId' => $projectId
-                ]
-            );
-            return;
-        }
-
-        if (isset($project)) {
+        if (
+            isset($project)
+            && $this->isSubmited('project')
+        ) {
             $formValues = array_map('trim', $this->getFormValues('project'));
 
-            if ($this->priorVerification($formValues, 'tokenEditProject', 'back/project_edit.html.twig')) {
+            if (
+                $this->tokenCSRFIsValid($formValues['tokenEditProject'])
+                && $this->formFieldsIsNotEmpty($formValues)
+            ) {
                 $entity = $project->hydrate($formValues);
                 $projectEdited = (new ProjectManager())->update($entity);
-                $this->renderViewOnActionInDatabase(
-                    $projectEdited,
-                    'Votre projet a été modifié avec succès',
-                    'Votre projet n\'a pas pu être modifié. Veuillez réessayer.',
-                    'back/project_edit.html.twig',
-                    $formValues
-                );
+                $_SESSION['flashMessage'] = $projectEdited ? 'Votre projet a été modifié avec succès' : 'Votre projet n\'a pas pu être modifié. Veuillez réessayer.';
             }
         }
+
+        $this->generateTokenCSRF()->renderView(
+            $projectEdited ? 'back/projects.html.twig' : 'back/project_edit.html.twig',
+            [
+                'project' => $formValues ?? $project,
+                'projectId' => $projectId,
+                'flashMessage' => $_SESSION['flashMessage'] ?? '',
+                'classValue' => $projectEdited ? 'text-success' : 'text-danger',
+                'projects' => (new ProjectManager())->find(),
+            ]
+        );
     }
 
     public function deleteAction(): void
     {
         $projectId = $this->getParamAsInt('id');
         $project = $this->checkProjectExistence($projectId);
+        $projectDeleted = false;
 
         if(isset($project)) {
             $projectDeleted = (new ProjectManager())->delete($projectId);
-            $this->renderViewOnActionInDatabase(
-                    $projectDeleted,
-                    'Votre projet a été supprimé avec succès',
-                    'Votre projet n\'a pas pu être supprimé.',
-                    'back/projects.html.twig'
-            );
-        }
-    }
-
-    private function priorVerification(array $formValues, string $tokenName, string $failurePage): bool
-    {
-        return $this->tokenCSRFIsValidated($tokenName, $failurePage, $formValues) && $this->checkOnEmptyField($formValues, $failurePage);
-    }
-
-    private function tokenCSRFIsValidated(string $tokenName, string $failurePage, array $formValues): bool
-    {
-        if ($this->checkTokenCSRF($formValues[$tokenName])) {
-            return true;
+            $_SESSION['flashMessage'] = $projectDeleted ? 'Votre projet a été supprimé avec succès' : 'Votre projet n\'a pas pu être supprimé.';
         }
 
-        $this->generateTokenCSRF();
         $this->renderView(
-            $failurePage,
+            'back/projects.html.twig',
             [
-                'flashMessage' => 'Les jetons CSRF ne correspondent pas. Veuillez rafraichir la page',
-                'project' => $formValues,
-                'classValue' => 'text-danger',
-                'projectId' => $this->getParamAsInt('id')
+                'projects' => (new ProjectManager())->find(),
+                'flashMessage' => $_SESSION['flashMessage'] ?? '',
+                'classValue' => $projectDeleted ? 'text-success' : 'text-danger'
             ]
         );
-        return false;
-    }
-
-    private function checkOnEmptyField(array $formValues, string $failurePage): bool
-    {
-        if (count(array_filter($formValues)) === count($formValues)) {
-            return true;
-        }
-
-        $this->generateTokenCSRF();
-        $this->renderView(
-            $failurePage,
-            [
-                'flashMessage' => 'Veuillez remplir tous les champs.',
-                'project' => $formValues,
-                'classValue' => 'text-danger',
-                'projectId' => $this->getParamAsInt('id')
-            ]
-        );
-        return false;
     }
 
     private function checkProjectExistence(int $projectId): ?Project
@@ -163,48 +131,8 @@ class ProjectController extends AdminControllerAbstract
             }
         }
 
-        $this->renderView(
-            'back/projects.html.twig',
-            [
-                'projects' => (new ProjectManager())->find(),
-                'flashMessage' => 'Une erreur est survenue',
-                'classValue' => 'text-danger',
-            ]
-        );
+        $_SESSION['flashMessage'] = 'Une erreur est survenue';
+
         return null;
-    }
-
-    private function renderViewOnActionInDatabase(
-        bool $result,
-        string $successMessage,
-        string $failureMessage,
-        string $failureView,
-        array $formValues = []
-    ): self {
-        $flashMessage = $failureMessage;
-        $view = $failureView;
-        $classValue = 'text-danger';
-
-        if ($result) {
-            $flashMessage = $successMessage;
-            $view = 'back/projects.html.twig';
-            $classValue = 'text-success';
-        }
-
-        if(!$result) {
-            $this->generateTokenCSRF();
-        }
-
-        $this->renderView(
-            $view,
-            [
-                'flashMessage' => $flashMessage,
-                'classValue' => $classValue,
-                'projectId' => $this->getParamAsInt('id'),
-                'project' => $formValues,
-                'projects' => (new ProjectManager())->find()
-            ]
-        );
-        return $this;
     }
 }
