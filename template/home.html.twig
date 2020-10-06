@@ -10,8 +10,8 @@
                     Après un début de carrière en tant que technicien télécom & réseaux, j'ai choisis de me reconvertir dans le développement web. Ce qui me passionne dans le développement, c'est de créer du code modélisant les choses de la vie courante tout en répondant à une problématique. Mon CV est disponible <a href="/public/documents/cv_nicolas_rellier.zip">ici</a><br>
                 </div>
             </article>
-            <article id="portfolio" class="row justify-content-center">
-                <h2 class="col-12 mt-5">Portfolio</h2>
+            <article id="portfolio" class="row justify-content-center mt-5">
+                <h2 class="col-12">Portfolio</h2>
                 {% for project in projects %}
                     <div class="projects col-10 col-sm-6 col-lg-4 mt-4">
                         <img class="img-thumbnail" src="{{ project.linkToPicture }}" alt="illustration du projet">
@@ -32,11 +32,11 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <h3 class="modal-title col-12" id="project{{ project.id }}Title">{{ project.title }}</h3>
-                            <p class="col-6">Modifié le {{ project.dateUpdated|date("d/m/Y") }}</p>
+                            <p class="col-6">Modifié le {{ project.dateUpdated }}</p>
                             <p class="col-6">{{ project.author }}</p>
                         </div>
                         <div class="modal-body row justify-content-center">
-                            <img class="col-6"src="{{ project.linkToPicture }}" alt="image du projet {{ project.id }}">
+                            <img class="col-6"src="{{ project.linkToPicture }}" alt="image du projet 1">
                             <p class="col-10">{{ project.chapo|raw }}</p>
                             <p class="col-10">{{ project.content|raw}}</p>
                         </div>
@@ -47,25 +47,5 @@
                 </div>
             </div>
         {% endfor %}
-        <h2 class="col-12 text-center pt-5" id="contactForm">Contact</h2>
-        {% if flashMessage is not empty %}
-            <p class="{{ classValue }} text-center pt-2">{{ flashMessage }}</p>
-        {% endif %}
-        <form action="/#contactForm" method="post" class="mx-auto">
-            <div class="form-group">
-                <label for="full-name" class="col-form-label">Nom prénom</label>
-                <input type="text" class="form-control" id="full-name" name="contact[fullName]" required>
-            </div>
-            <div class="form-group">
-                <label for="email" class="col-form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="contact[email]" required>
-            </div>
-            <div class="form-group">
-                <label for="message" class="col-form-label">Votre message</label>
-                <textarea class="form-control" id="message" name="contact[message]" rows="14" required></textarea>
-            </div>
-            <input type="hidden" name="contact[tokenContactForm]" value="{{ session.token }}">
-            <input type="submit" class="btn btn-primary" value="Envoyer">
-        </form>
     </main>
 {% endblock %}
