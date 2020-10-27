@@ -81,6 +81,7 @@ abstract class DefaultControllerAbstract
             return true;
         }
 
+        $_SESSION['classValue'] = 'text-danger';
         $_SESSION['flashMessage'] = 'Les jetons CSRF ne correspondent pas. Veuillez rafraichir la page';
 
         return false;
@@ -104,6 +105,7 @@ abstract class DefaultControllerAbstract
             return true;
         }
 
+        $_SESSION['classValue'] = 'text-danger';
         $_SESSION['flashMessage'] = 'Veuillez remplir tous les champs.';
 
         return false;
